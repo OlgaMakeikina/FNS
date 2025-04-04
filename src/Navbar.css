@@ -1,0 +1,18 @@
+.p-menubar {
+  background-color: #f5f5f5; 
+  border-bottom: 2px solid #FFCC29;
+}
+
+.p-menubar .p-menuitem-link {
+  color: #333; 
+  font-weight: 500;
+}
+
+.p-menubar .p-menuitem-link:hover {
+  background-color: #FFCC29;
+  color: #000; 
+  border-radius: 6px;
+}
+.menu-item-icon {
+  margin-right: 8px; /* или любое другое значение, чтобы создать нужный отступ */
+}

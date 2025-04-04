@@ -1,0 +1,41 @@
+.contact-header h2{
+    color: #009739;
+    font-size: 46px;
+    margin-top: 100px;
+    text-align: center;
+}
+.contact-header p {
+    margin: 0px 10%;
+    text-align: center;
+    font-size: 18px;  
+}
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 70%;
+    margin: 50px 15%;
+}
+#name, #email, #message {
+    padding: 5px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    width: 100%;
+}
+#message {
+height: 200px;
+}
+.contactForm-btn {
+    padding: 5px 20px;
+    border-radius: 5px;
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    background-color: #FFCC29;
+    cursor: pointer;
+}
+.contactForm-btn:hover {
+    background: #264d88;
+    color: #F5F5F5;
+}
