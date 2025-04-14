@@ -1,0 +1,53 @@
+.weather-widget-container {
+    width: 300px; /* Фиксированная ширина 300px */
+    margin: 0 auto; /* Центрирование */
+    text-align: center;
+  }
+  
+  /* Убедимся, что сам виджет не выходит за пределы контейнера */
+  .weatherwidget-io {
+    width: 100%;
+    display: block;
+  }
+  .currency-widget-container {
+    width: 300px; /* Фиксированная ширина как в sz="300x238" */
+    margin: 0 auto; /* Центрирование */
+    text-align: center;
+  }
+  
+  .currency-widget-footer {
+    text-align: right;
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .currency-widget-footer a {
+    color: #000000;
+    text-decoration: none;
+  }
+  
+  .currency-widget-footer a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+  }
+  .currency-widget-content table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .currency-widget-content th,
+  .currency-widget-content td {
+    padding: 5px;
+    border: 1px solid #ccc;
+    text-align: center;
+  }
+  
+  .currency-widget-content th {
+    background-color: #f5f5f5;
+  }
+  /* Адаптация для мобильных устройств */
+  @media (max-width: 300px) {
+    .currency-widget-container {
+      width: 100%; /* На экранах меньше 300px занимает всю ширину */
+    }
+  }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { TabView, TabPanel } from 'primereact/tabview';
 import support from './support.jpg';
 import crypto from './crypto.jpg';
@@ -33,7 +33,7 @@ const DonationComponent = () => {
       Копировать код
     </a>
   </p>
-            <img src={pix} width="150px"/>
+            <img src={pix} width="150px" alt="qrcode-pix"/>
           </TabPanel>
           <TabPanel header="Через российские банки">
             <p>Информация о поддержке через российские банки.</p>
@@ -41,7 +41,7 @@ const DonationComponent = () => {
           <TabPanel header="Криптовалютой">
           <p><b>Network: </b>TRC20</p>
             <p><b>Wallet Address: </b>TLQMa8m4e4sDhVYtCmk3MQ9BSEx4H6yZbq</p>
-            <img src={crypto} width="150px"/>
+            <img src={crypto} width="150px" alt="qrcode-crypto" />
           </TabPanel>
         </TabView>
       </div>

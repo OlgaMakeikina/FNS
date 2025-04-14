@@ -1,13 +1,15 @@
 
 html, body, #root, .app-container, .layout {
-  min-height: 100vh; /* Высота страницы не меньше высоты окна */
+  min-height: 100vh; 
   display: flex;
   flex-direction: column;
 }
-
+html {
+  scroll-behavior: smooth;
+}
 
 .content {
-  flex-grow: 1; /* Контент растягивается, но не мешает скроллингу */
+  flex-grow: 1; 
 }
 
 .footer {

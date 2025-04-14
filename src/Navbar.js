@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Menubar } from "primereact/menubar";
-// import { InputText } from "primereact/inputtext";
 import { Badge } from "primereact/badge";
 import { Link } from "react-router-dom";
 import "primereact/resources/themes/lara-light-blue/theme.css";
@@ -20,7 +19,7 @@ export default function Navbar() {
     <Link 
       to={item.to} 
       className={`flex align-items-center p-menuitem-link ${item.className || ""}`}
-      style={item.className === "custom-donate-item" ? {color: '#1a9e3b', textDecoration: 'none' } : {}}
+      style={item.className === "custom-donate-item" ? { color: '#1a9e3b', textDecoration: 'none' } : {}}
     >
       <span className={`pi ${item.icon} menu-item-icon`} />
       <span className="mx-2">{item.label}</span>
@@ -35,11 +34,10 @@ export default function Navbar() {
 
   const items = [
     {
-      
-        label: "Главная",
-        icon: "pi pi-home",
-        to: "/",
-        template: itemRenderer,
+      label: "Главная",
+      icon: "pi pi-home",
+      to: "/",
+      template: itemRenderer,
     },
     {
       label: "Специалисты",
@@ -64,15 +62,15 @@ export default function Navbar() {
       icon: "pi pi-star",
       items: [
         {
-          label: "Документы",
-          icon: "pi pi-check",
-          to: "/documents",
-          template: itemRenderer,
-        },
-        {
           label: "Лайфхаки",
           icon: "pi pi-check",
           to: "/lifehacks",
+          template: itemRenderer,
+        },
+        {
+          label: "Документы",
+          icon: "pi pi-check",
+          to: "/documents",
           template: itemRenderer,
         },
         {
@@ -100,26 +98,18 @@ export default function Navbar() {
 
   const start = (
     <Link to="/" className="logo">
-      <img
-        alt="logo"
-        src={logo}
-        height="40"
-        className="mr-2"
-      />
-      </Link>
+      <img alt="logo" src={logo} height="40" className="mr-2" />
+    </Link>
   );
 
-/*
-  const end = (
-    <div className="flex align-items-center gap-2">
-      <InputText placeholder="Поиск" type="text" className="w-8rem sm:w-auto" />
-
-    </div>
-  );
-*/
   return (
     <div className="navbar-container">
-      <Menubar model={items} start={start} /* end={end}*/ className={mobileMenuVisible ? "mobile-visible" : ""} />
+      <Menubar
+        model={items}
+        start={start}
+        className={`glassmorphism ${mobileMenuVisible ? "mobile-visible" : ""}`}
+        onClick={() => setMobileMenuVisible(false)} // Закрываем меню при клике на элемент
+      />
     </div>
   );
 }

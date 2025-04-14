@@ -156,7 +156,7 @@ const specialists = [
       { name: "Блины в ассортименте от", price: 18 },
     ],
     address: "Rod. João Gualberto Soares, 56 - quiosque 1 - Ingleses do Rio Vermelho, Florianópolis - SC, 88058-300",
-    telegramChannel: "https://t.me/capiva_ra",
+    telegramChannel: "",
     website: "",
     instagram: "",
     contact: "",
@@ -164,6 +164,22 @@ const specialists = [
       "/images/blinopolis/blinopolis.png",
     ],
     tags: ["Еда"],
+  },
+  {
+    id: 9,
+    name: "PRO IT LTDA",
+    services: "Обмен валют",
+    description: "Обмен валют и криптовалют на реалы, баты, гривны и др.",
+    price: [],
+    address: "Florianópolis",
+    telegramChannel: "https://t.me/obmen_money",
+    website: "",
+    instagram: "",
+    contact: "+5548991516988",
+    photos: [
+      "/images/obmen-money/obmen-money.jpg",
+    ],
+    tags: ["IT", "Деньги", "Недвижимость"],
   },
 ];
 

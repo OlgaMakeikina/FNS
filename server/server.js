@@ -37,12 +37,11 @@ const upload = multer({
   limits: { fileSize: 5000000 }
 });
 
-// Настройка Nodemailer
 const transporter = nodemailer.createTransport({
-  service: "gmail", // Используем Gmail, можно заменить на другой сервис
+  service: "gmail", 
   auth: {
-    user: "omakeykina@gmail.com", // Укажи свой email
-    pass: "rvbo wnvl iefx ejdp" // Пароль приложения (см. ниже)
+    user: "omakeykina@gmail.com", 
+    pass: "rvbo wnvl iefx ejdp" 
   }
 });
 
@@ -68,7 +67,6 @@ app.post("/api/send", upload.fields([
     console.log("Body:", req.body);
     console.log("Files:", req.files);
 
-    // Формируем данные для письма
     const textData = Object.entries(req.body)
       .map(([key, value]) => `${key}: ${value}`)
       .join("\n");
@@ -78,8 +76,8 @@ app.post("/api/send", upload.fields([
       .join("\n");
 
     const mailOptions = {
-      from: "omakeykina@gmail.com", // Твой email
-      to: "omakeykina@gmail.com",   // Куда отправлять (может быть другой адрес)
+      from: "omakeykina@gmail.com", 
+      to: "omakeykina@gmail.com",   
       subject: "Новая заявка с формы",
       text: `Получены новые данные:\n\nТекстовые поля:\n${textData}\n\nФайлы:\n${filesData}`,
       attachments: Object.keys(req.files).map(key => ({
@@ -88,7 +86,7 @@ app.post("/api/send", upload.fields([
       }))
     };
 
-    // Отправляем письмо
+
     await transporter.sendMail(mailOptions);
     console.log("Письмо успешно отправлено");
 
