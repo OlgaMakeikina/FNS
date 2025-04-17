@@ -1,5 +1,5 @@
 import React from "react";
-import FormComponent from "./FormComponent"; // ✅ импорт своего компонента
+import FormComponent from "./FormComponent"; 
 import "./App.css";
 
 const AddContact = () => {

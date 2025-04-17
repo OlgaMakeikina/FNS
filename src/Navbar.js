@@ -79,6 +79,12 @@ export default function Navbar() {
           to: "/news",
           template: itemRenderer,
         },
+        {
+          label: "Туризм",
+          icon: "pi pi-check",
+          to: "/tourism",
+          template: itemRenderer,
+        },
       ],
     },
     {
@@ -108,7 +114,7 @@ export default function Navbar() {
         model={items}
         start={start}
         className={`glassmorphism ${mobileMenuVisible ? "mobile-visible" : ""}`}
-        onClick={() => setMobileMenuVisible(false)} // Закрываем меню при клике на элемент
+        onClick={() => setMobileMenuVisible(false)} 
       />
     </div>
   );

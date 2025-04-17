@@ -7,10 +7,8 @@ import './SpecialistDetails.css';
 const SpecialistDetails = () => {
   const { name } = useParams();
 
-  // Хук useState
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Функция для транслитерации имени
   const transliterate = (text) => {
     return text
       .toLowerCase()
@@ -23,11 +21,11 @@ const SpecialistDetails = () => {
         };
         return map[match] || match;
       })
-      .replace(/\s+/g, "-") // заменяем пробелы на дефисы
-      .replace(/[^a-z0-9-]/g, ""); // удаляем все символы, кроме латинских букв и цифр
+      .replace(/\s+/g, "-") 
+      .replace(/[^a-z0-9-]/g, ""); 
   };
 
-  // Находим специалиста по транслитерированному имени
+ 
   const specialist = specialists.find(item => transliterate(item.name) === name);
 
   if (!specialist) {

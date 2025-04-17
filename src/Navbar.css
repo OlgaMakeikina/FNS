@@ -1,44 +1,33 @@
-/* Основной контейнер */
 .navbar-container {
-  position: fixed;
   top: 0;
   width: 100%;
   z-index: 1000;
 }
 
-/* Стили для Menubar с эффектом glassmorphism */
 .p-menubar {
-  background: rgba(255, 255, 255, 0.7); /* Полупрозрачный белый фон */
-  backdrop-filter: blur(10px); /* Размытие для стеклянного эффекта */
-  border: 1px solid rgba(255, 255, 255, 0.3); /* Легкая белая обводка */
-  border-bottom: 2px solid #FFCC29; /* Сохраняем вашу желтую линию */
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); /* Мягкая тень */
+  background: #ffffff; 
+  border-bottom: 2px solid #FFCC29; 
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
 }
 
-/* Стили ссылок */
 .p-menubar .p-menuitem-link {
-  color: #333;
   font-weight: 500;
 }
 
-/* Эффект при наведении на ссылки */
 .p-menubar .p-menuitem-link:hover {
-  background: #FFCC29; /* Желтый с прозрачностью */
+  background: #FFCC29;
   color: #000;
   border-radius: 6px;
 }
 
-/* Иконки меню */
 .menu-item-icon {
   margin-right: 8px;
 }
 
-/* Стили для подменю (чтобы они тоже имели glassmorphism) */
 .p-menubar .p-submenu-list {
-  background: rgb(255, 255, 255, 0.5);
-  backdrop-filter: blur(10px);
-  border: 1px solid #FFCC29;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  background: #ffffff; 
+  border: 1px solid #FFCC29; 
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1); 
 }
 
 .p-menubar .p-submenu-list .p-menuitem-link:hover {

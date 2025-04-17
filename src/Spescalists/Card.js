@@ -4,7 +4,6 @@ import "./Specialists.css";
 const SpecialistCard = ({ specialist }) => {
   const navigate = useNavigate();
 
-  // Транслитерация имени
   const transliterate = (text) => {
     return text
       .toLowerCase()
@@ -17,8 +16,8 @@ const SpecialistCard = ({ specialist }) => {
         };
         return map[match] || match;
       })
-      .replace(/\s+/g, "-") // заменяем пробелы на дефисы
-      .replace(/[^a-z0-9-]/g, ""); // удаляем все символы, кроме латинских букв и цифр
+      .replace(/\s+/g, "-") 
+      .replace(/[^a-z0-9-]/g, ""); 
   };
 
   const urlName = transliterate(specialist.name);

@@ -1,60 +1,281 @@
+
 .home-container {
-    position: relative;
-    width: 100%;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #ffffff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.map {
+  width: 35%; /* Фиксированная ширина для десктопа */
+  height: 100%; /* Растягиваем по высоте контейнера */
+  max-height: 600px; /* Ограничение высоты для больших экранов */
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
+  position: absolute;
+  right: 0;
+  top: 0;
+  object-fit: contain; /* Сохраняем пропорции изображения */
+  object-position: center; /* Центрируем изображение */
+  z-index: 4;
+  cursor: pointer;
+  transition: opacity 0.3s ease; /* Плавная смена изображения */
+}
+
+
+
+.content-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  z-index: 2;
+}
+
+.header-content {
+  margin: 50px 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%;
+  max-width: 600px;
+  text-align: center;
+}
+
+.header-content img {
+  margin-bottom: 15px;
+}
+
+.header-content h1 {
+  font-size: 3rem;
+  color: #002776;
+  margin-bottom: 10px;
+  font-family: "Ruslan Display", sans-serif;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.header-content h3 {
+  font-size: 2rem;
+  margin-top: 0;
+  color: #009B3A;
+  font-family: "Pacifico", cursive;
+  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.header-content h3::before,
+.header-content h3::after {
+  content: '';
+  width: 40px;
+  height: 3px;
+  background: #FFCC29;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.header-content h3::before {
+  left: -50px;
+}
+
+.header-content h3::after {
+  right: -50px;
+}
+
+.home-button {
+  position: relative;
+  margin: 0 auto 20px;
+  display: block;
+  padding: 15px 30px;
+  background: rgba(0, 39, 118, 0.9);
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background 0.3s ease;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.home-button:hover {
+  transform: scale(1.05);
+  background: #ffcc29;
+}
+
+.home-button-link {
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.home-button:hover .home-button-link {
+  color: #000000;
+}
+
+.thesis-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 50%;
+  max-width: 400px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.thesis-container-mobile {
+  display: none; 
+}
+
+.thesis-item {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #FFCC29;
+  text-align: center;
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.thesis-item:hover {
+  transform: translateY(-5px);
+  background: rgb(255, 204, 41, 0.5);
+}
+
+.thesis-item p {
+  margin: 5px 0;
+}
+
+.thesis-item p:first-child {
+
+  font-size: 1.1rem;
+  color: #009B3A;
+  font-family: "Ruslan Display", sans-serif;
+}
+
+@media (max-width: 1024px) {
+  .home-container {
+    padding: 10px;
+    flex-direction: column;
   }
-  
-  .home-image {
+
+  .content-wrapper {
     width: 100%;
-    display: block;
+    order: 1;
   }
-  
+
+  .header-content {
+    margin: 20px 0 15px;
+    width: 90%;
+    max-width: none;
+  }
+
+  .header-content img {
+    width: 40px;
+    margin-bottom: 10px;
+  }
+
+  .header-content h1 {
+    font-size: 2.5rem;
+  }
+
+  .header-content h3 {
+    font-size: 1.8rem;
+  }
+
   .home-button {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #0047ab;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    font-size: 16px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 12px 25px;
+    margin-bottom: 15px;
+    order: 2;
   }
 
   .home-button-link {
-    text-decoration: none;
-    color: #ffffff; 
-    display: block; 
-    transition: color 0.3s; 
-  }
-  
-  .home-button:hover {
-    background-color: #ffcc29; 
-  }
-  
-  .home-button:hover .home-button-link {
-    color: #000; 
+    font-size: 1rem;
   }
 
-
-
-  
-  .cta-button {
-    font-family: 'Russo One', sans-serif;
-    font-size: 20px;
-    padding: 15px 30px;
-    border: none;
-    border-radius: 20px;
-    background: linear-gradient(90deg, #002776, #009B3A); /* Градиент синий-зеленый */
-    color: white;
-    cursor: pointer;
-    transition: transform 0.3s;
-    /* Glassmorphism эффект */
-    background: rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  .map {
+      position: relative;
+      top: auto;
+      right: auto;
+      width: 100%; 
+      height: auto; 
+      max-height: 40vh; 
+      margin: 0 auto 20px;
+      object-fit: contain;
+      object-position: center;
+      transition: opacity 0.3s ease;
+       order: 3;
   }
-  
+.thesis-item {
+  width: 100%;
+}
+  .thesis-container {
+    display: none;
+  }
+
+  .thesis-container-mobile {
+    display: flex; 
+    width: 80%;
+    margin-left: 10%;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    z-index: 2;
+    order: 4;
+  }
+
+  .thesis-container-mobile .thesis-item {
+    padding: 15px;
+  }
+
+  .thesis-container-mobile .thesis-item p:first-child {
+    font-size: 1rem;
+  }
+
+  .thesis-container-mobile .thesis-item p:last-child {
+    font-size: 0.9rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .header-content h1 {
+    font-size: 1.8rem;
+  }
+
+  .header-content h3 {
+    font-size: 1.3rem;
+  }
+
+  .home-button {
+    padding: 10px 20px;
+  }
+
+  .home-button-link {
+    font-size: 0.9rem;
+  }
+
+  .thesis-container-mobile .thesis-item {
+    padding: 12px;
+  }
+
+  .thesis-container-mobile .thesis-item p:first-child {
+    font-size: 0.9rem;
+  }
+
+  .thesis-container-mobile .thesis-item p:last-child {
+    font-size: 0.8rem;
+  }
+}

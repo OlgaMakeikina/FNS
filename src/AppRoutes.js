@@ -20,6 +20,8 @@ import ChildCitizenshipBrazil from "./documents/ChildCitizenship";
 import ForChild from "./lifehacks/ForChild";
 import SUSGuide from "./documents/SUSGuide";
 import PrivacyPolicy from "./Privacy";
+import Tourism from "./tourism/Tourism";
+import FloripaGuide from "./tourism/FloripaGuide";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -45,6 +47,7 @@ export default function AppRouter() {
             <Route path="/addcontact" element={<AddContact />} />
             <Route path="/documents" element={<Documents />} />
             <Route path="/news" element={<News />} />
+            <Route path="/tourism" element={<Tourism />} />
             <Route path="/lifehacks" element={<Lifehacks />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/donate" element={<DonationComponent />} />
@@ -57,6 +60,7 @@ export default function AppRouter() {
             <Route path="/documents/child-citizenship" element={<ChildCitizenshipBrazil />} />
             <Route path="/documents/sus" element={<SUSGuide />} />
             <Route path="/lifehacks/for-child" element={<ForChild />} />
+            <Route path="/tourism/floripa-guide" element={<FloripaGuide />} />
           </Routes>
         </div>
         <Footer />

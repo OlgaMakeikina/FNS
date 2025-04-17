@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom"; // Используем Link для навигации, если у тебя React Router
+import { Link } from "react-router-dom"; 
 import "./Footer.css";
 
 const WebsiteMap = () => {

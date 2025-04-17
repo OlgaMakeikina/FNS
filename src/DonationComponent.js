@@ -35,9 +35,6 @@ const DonationComponent = () => {
   </p>
             <img src={pix} width="150px" alt="qrcode-pix"/>
           </TabPanel>
-          <TabPanel header="Через российские банки">
-            <p>Информация о поддержке через российские банки.</p>
-          </TabPanel>
           <TabPanel header="Криптовалютой">
           <p><b>Network: </b>TRC20</p>
             <p><b>Wallet Address: </b>TLQMa8m4e4sDhVYtCmk3MQ9BSEx4H6yZbq</p>

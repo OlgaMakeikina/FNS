@@ -230,10 +230,6 @@
     font-size: 28px;
   }
 
-  .name-services p {
-    font-size: 16px;
-  }
-
   .gallery-contacts {
     flex-direction: column;
     padding: 15px;
@@ -299,15 +295,6 @@
     font-size: 14px;
   }
 
-  .name-services h2 {
-    font-size: 24px;
-  }
-
-  .name-services p {
-    font-size: 14px;
-    margin: 8px 0;
-  }
-
   .top-section {
     margin-bottom: 15px;
   }
@@ -320,14 +307,6 @@
   .next {
     padding: 8px;
     font-size: 16px;
-  }
-
-  .contacts h3 {
-    font-size: 18px;
-  }
-
-  .address-container {
-    font-size: 13px;
   }
 
   .address-container img {
@@ -356,21 +335,9 @@
     margin: 15px 0;
   }
 
-  .specialist-price h3,
-  .specialist-description h3 {
-    font-size: 18px;
-  }
-
-  .specialist-price li {
-    font-size: 13px;
-    padding: 4px 0;
-  }
-
   .specialist-description {
     margin-top: 15px;
   }
 
-  .specialist-description p {
-    font-size: 13px;
-  }
+
 }

@@ -2,7 +2,6 @@
   width: 100%;
   text-align: center;
   font-family: "Inter", sans-serif;
-  color: #333;
 }
 
 .donation-header {
@@ -30,7 +29,6 @@
 .donats h4 {
   font-size: 24px;
   font-weight: 600;
-  color: #333;
   margin-bottom: 20px;
 }
 
@@ -60,14 +58,10 @@
   padding: 15px 20px;
   font-size: 16px;
   font-weight: bold;
-  color: #333;
   text-align: center;
   cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-  
+  transition: background-color 0.3s, color 0.3s; 
 }
-
-
 
 .p-tabview .p-tabview-panels {
   padding: 20px;

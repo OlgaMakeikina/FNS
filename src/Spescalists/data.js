@@ -181,6 +181,24 @@ const specialists = [
     ],
     tags: ["IT", "Деньги", "Недвижимость"],
   },
+  {
+    id: 10,
+    name: `Rentcar "Carro4you"`,
+    services: "Аренда автомобилей, выкуп автомобилей, продажа в рассрочку",
+    description: "Carro4you официальная компания. Наши принципы: - прозрачность и легальность нашей деятельности, - комфортные автомобили по доступным ценам, - отсутствие бюрократии, - гибкая система оплаты(рубли, реалы, доллары, евро, usdt). Самый низкий залог среди конкурентов. Мы регулярно обновляем свой автопарк и следим за техническим состоянием наших машин.",
+    price: [
+      { name: "Аренда удобных автомобилей от", price: 84 },
+    ],
+    address: "Florianópolis, Ingléses, Servidão José Manoel Pacífico 161",
+    telegramChannel: "https://t.me/carro4you",
+    website: "https://www.carro4you.com/",
+    instagram: "https://www.instagram.com/carro4you_br?igsh=MTRhemp3NWN1cjU4MQ==",
+    contact: "+5548996818468",
+    photos: [
+      "/images/car4you/car4you.png",
+    ],
+    tags: ["Авто"],
+  },
 ];
 
 export default specialists;
