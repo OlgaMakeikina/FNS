@@ -1,7 +1,7 @@
 // Home.jsx
 import { useEffect, useState } from 'react';
 import map from './map.png';
-import mapHover from './mask.png'; // Новое изображение для hover
+import mapHover from './mask.png';
 import logo from './1.png';
 import './Home.css';
 import { Link } from 'react-router-dom';
@@ -9,7 +9,16 @@ import Specialists from './Spescalists/Specialists';
 import { gsap } from 'gsap';
 
 const Home = () => {
-  const [isMapHovered, setIsMapHovered] = useState(false); // Состояние для hover
+  const [isMapHovered, setIsMapHovered] = useState(false);
+
+  const handleMapToggle = () => {
+    setIsMapHovered((prev) => !prev);
+    gsap.fromTo(
+      '.map',
+      { scale: 1 },
+      { scale: 1.05, duration: 0.2, ease: 'power2.out', yoyo: true, repeat: 1 }
+    );
+  };
 
   useEffect(() => {
     gsap.fromTo(
@@ -41,11 +50,12 @@ const Home = () => {
     <div>
       <div className="home-container">
         <img
-          src={isMapHovered ? mapHover : map} 
+          src={isMapHovered ? mapHover : map}
           alt="map"
           className="map"
           onMouseEnter={() => setIsMapHovered(true)} 
-          onMouseLeave={() => setIsMapHovered(false)} 
+          onMouseLeave={() => setIsMapHovered(false)}
+          onClick={handleMapToggle} 
         />
         <div className="content-wrapper">
           <div className="thesis-container">
