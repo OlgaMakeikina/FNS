@@ -156,7 +156,7 @@ function FormComponent() {
 
           <div className="form-row">
             <label>
-              Перечень услуг - кратко:*
+              Перечень услуг — кратко:*
               <input
                 name="service"
                 placeholder="напр., ремонт бытовой техники, услуги косметолога, трансфер в аэропорт"
@@ -208,7 +208,7 @@ function FormComponent() {
             <textarea name="description" onChange={handleChange} required />
           </label>
           <label>
-            Прайс (в формате: услуга - цена в реалах):
+            Прайс (в формате: услуга — цена в реалах):
             <textarea 
               name="price" 
               placeholder="напр. стрижка мужская - 100, стрижка детская от - 80" 

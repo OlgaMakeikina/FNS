@@ -8,6 +8,7 @@
   }
   .filter-btn-container {
     margin-top: 50px;
+    margin-bottom: 50px;
   }
   
   .filter-button {
@@ -22,10 +23,7 @@
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
   }
-  .filter-button:hover {
-     background: #264d88;
-     color: #F5F5F5;
-  }
+
  
   .filter-button.active {
     background-color: #FFCC29;

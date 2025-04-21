@@ -22,6 +22,7 @@ import SUSGuide from "./documents/SUSGuide";
 import PrivacyPolicy from "./Privacy";
 import Tourism from "./tourism/Tourism";
 import FloripaGuide from "./tourism/FloripaGuide";
+import WeatherWidget from "./WeatherWidget";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -61,6 +62,7 @@ export default function AppRouter() {
             <Route path="/documents/sus" element={<SUSGuide />} />
             <Route path="/lifehacks/for-child" element={<ForChild />} />
             <Route path="/tourism/floripa-guide" element={<FloripaGuide />} />
+            <Route path="/weather" element={<WeatherWidget />} />
           </Routes>
         </div>
         <Footer />

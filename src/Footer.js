@@ -1,23 +1,15 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import CurrencyWidget from "./CurrencyWidget";
-import WeatherWidget from "./WeatherWidget";
-import "./Footer.css";
+// src/components/Footer.jsx
+import React from 'react';
+import { Link } from 'react-router-dom';
+import CurrencyWidget from './CurrencyWidget';
+import './Footer.css';
 
 const Footer = () => {
   return (
     <footer className="footer">
       <div className="footer-container">
-        <div className="footer-left">
-          <div className="footer-column footer-widgets">
-            <div className="widget-wrapper">
-              <CurrencyWidget />  
-              <WeatherWidget />
-            </div>
-          </div>
-        </div>
-
-        <div className="footer-right">
+    
+        <div className="footer-content">
           <div className="footer-links">
             <div className="footer-column">
               <h3>Навигация</h3>
@@ -34,7 +26,8 @@ const Footer = () => {
               <ul>
                 <li><Link to="/documents">Документы</Link></li>
                 <li><Link to="/lifehacks">Лайфхаки</Link></li>
-                <li><Link to="/news">Новости</Link></li>
+                <li><Link to="/news">Новости</Link></li>       
+                <li><Link to="/tourism">Туризм</Link></li>
                 <li><Link to="/privacy">Политика конфиденциальности</Link></li>
               </ul>
             </div>
@@ -48,23 +41,34 @@ const Footer = () => {
             </div>
           </div>
 
-          <div className="footer-donation">
-            <h3>Поддержите нас</h3>
-            <p>
-              Ваши пожертвования помогают нам развивать сайт, добавлять новые функции и поддерживать актуальную информацию для вас. Каждый рубль или реал — это вклад в наше сообщество!
-            </p>
-            <div className="donation-elements">
-              <Link to="/donate" className="donation-btn">
-                Задонатить
-              </Link>
+          <div className="footer-widgets">
+            <div className="widget-wrapper">
+              <CurrencyWidget />
             </div>
           </div>
+          <div className="footer-donation">
+          <h3>Поддержите нас</h3>
+          <p>
+            Ваши донаты помогают нам развивать сайт, добавлять новые функции и поддерживать актуальную информацию для вас. Каждый рубль или реал — это вклад в наше сообщество!
+          </p>
+          <div className="donation-elements">
+            <Link to="/donate" className="donation-btn">
+              Задонатить
+            </Link>
+          </div>
+        </div>
+
         </div>
       </div>
 
       <div className="footer-bottom">
-        <hr></hr>
-        <p>© {new Date().getFullYear()} "Флорипа на связи". Все права защищены. Дизайн и разработка от <a href="https://olgamakeikina.netlify.app/" target="_blank" rel="noopener noreferrer">Ольга Макейкина</a></p>
+        <hr />
+        <p>
+          <b>© {new Date().getFullYear()} "Флорипа на связи".</b> Все права защищены. Дизайн и разработка от{' '}
+          <a href="https://olgamakeikina.netlify.app/" target="_blank" rel="noopener noreferrer">
+            Ольга Макейкина
+          </a>
+        </p>
       </div>
     </footer>
   );

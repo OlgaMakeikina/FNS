@@ -85,6 +85,12 @@ export default function Navbar() {
           to: "/tourism",
           template: itemRenderer,
         },
+        {
+          label: "Погода во Флорипе",
+          icon: "pi pi-check",
+          to: "/weather",
+          template: itemRenderer,
+        },
       ],
     },
     {

@@ -1,7 +1,6 @@
 .donation-container {
   width: 100%;
   text-align: center;
-  font-family: "Inter", sans-serif;
 }
 
 .donation-header {
@@ -56,7 +55,7 @@
 .p-tabview .p-tabview-nav li {
   flex: 1;
   padding: 15px 20px;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: bold;
   text-align: center;
   cursor: pointer;
@@ -73,7 +72,7 @@
 
 .p-tabview .p-tabview-panel p {
   margin: 10px 0;
-  font-size: 16px;
+  font-size: 18px;
   line-height: 1.5;
 }
 
@@ -100,7 +99,6 @@
 
   .donation-container p {
     margin: 0 10%;
-    font-size: 16px;
   }
 
   .donats {
@@ -117,11 +115,6 @@
 
   .p-tabview .p-tabview-nav li {
     padding: 12px 10px;
-    font-size: 14px;
-  }
-
-  .p-tabview .p-tabview-panels {
-    padding: 15px;
   }
 
   .p-tabview .p-tabview-panel p {
@@ -135,7 +128,7 @@
 
 @media (max-width: 480px) {
   .donation-header {
-    font-size: 28px;
+    font-size: 24px;
     margin: 15px 0;
   }
 
@@ -168,7 +161,6 @@
 
   .p-tabview .p-tabview-nav li {
     padding: 10px;
-    font-size: 13px;
     border-bottom: 1px solid #ddd;
     border-radius: 0;
   }
@@ -180,10 +172,6 @@
   .p-tabview .p-tabview-panels {
     padding: 10px;
     border: none;
-  }
-
-  .p-tabview .p-tabview-panel p {
-    font-size: 13px;
   }
 
   .donation-qr {

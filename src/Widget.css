@@ -1,52 +1,30 @@
-.weather-widget-container {
-    width: 300px; 
-    margin: 0 auto; 
-    text-align: center;
-  }
+.weather-widget {
+  width: 100%;
+  max-width: 300px;
+  margin: 30px auto 100px auto;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid #FFCC29;
+  text-align: center;
+  z-index: 2;
+}
+
+.weatherwidget-io {
+  font-family: "Ruslan Display", sans-serif !important;
+  color: #002776 !important;
+  text-decoration: none !important;
+  display: block !important;
+}
+
+.weatherwidget-io:hover {
+  color: #009B3A !important;
+}
   
   .weatherwidget-io {
     width: 100%;
     display: block;
-  }
-  .currency-widget-container {
-    width: 300px; 
-    margin: 0 auto; 
-    text-align: center;
-  }
-  
-  .currency-widget-footer {
-    text-align: right;
-    font-size: 12px;
-    margin-top: 5px;
-  }
-  
-  .currency-widget-footer a {
-    color: #000000;
-    text-decoration: none;
-  }
-  
-  .currency-widget-footer a:hover {
-    color: #0056b3;
-    text-decoration: underline;
-  }
-  .currency-widget-content table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .currency-widget-content th,
-  .currency-widget-content td {
-    padding: 5px;
-    border: 1px solid #ccc;
-    text-align: center;
-  }
-  
-  .currency-widget-content th {
-    background-color: #f5f5f5;
-  }
-
-  @media (max-width: 300px) {
-    .currency-widget-container {
-      width: 100%; 
-    }
   }

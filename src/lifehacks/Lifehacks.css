@@ -29,8 +29,11 @@
 .lifehacks-card:hover {
   transform: scale(1.05);
 }
-.lifehacks-card p {
+.lifehacks-card p, .lifehacks-card h3 {
   padding: 5px;
+}
+.lifehacks-card a {
+  padding-bottom: 15px;
 }
 .lifehacks-card img {
   width: 100%;

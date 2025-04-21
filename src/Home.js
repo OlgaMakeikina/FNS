@@ -12,11 +12,11 @@ const Home = () => {
   const [isMapHovered, setIsMapHovered] = useState(false);
 
   const handleMapToggle = () => {
-    setIsMapHovered((prev) => !prev);
+    setIsMapHovered((prev) => !prev); // Переключаем состояние
     gsap.fromTo(
       '.map',
       { scale: 1 },
-      { scale: 1.05, duration: 0.2, ease: 'power2.out', yoyo: true, repeat: 1 }
+      { scale: 1, duration: 0.2, ease: 'power2.out', yoyo: true, repeat: 1 }
     );
   };
 
@@ -53,9 +53,9 @@ const Home = () => {
           src={isMapHovered ? mapHover : map}
           alt="map"
           className="map"
-          onMouseEnter={() => setIsMapHovered(true)} 
+          onMouseEnter={() => setIsMapHovered(true)}
           onMouseLeave={() => setIsMapHovered(false)}
-          onClick={handleMapToggle} 
+          onClick={handleMapToggle} // Касание/клик для мобильных
         />
         <div className="content-wrapper">
           <div className="thesis-container">
