@@ -66,7 +66,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <hr />
         <p>
-          <b>© {new Date().getFullYear()} "Флорипа на связи".</b> Все права защищены. Дизайн и разработка от{' '}
+          <b>© {new Date().getFullYear()} Флорипа на связи.</b> Все права защищены. Дизайн и разработка от{' '}
           <a href="https://olgamakeikina.netlify.app/" target="_blank" rel="noopener noreferrer">
             Ольга Макейкина
           </a>

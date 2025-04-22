@@ -4,7 +4,7 @@ import "./Specialists.css";
 
 const Specialists = () => {
   return (
-    <main>
+    <section>
           <div className='specialists-cont'>
         <h2>Организации и специалисты</h2>
         <p>Найдите русскоязычных специалистов и сервисы во Флорипе быстро и удобно!</p>
@@ -12,7 +12,7 @@ const Specialists = () => {
           
           <SpecialistsList />
     </div>
-    </main>
+    </section>
 
   );
 };

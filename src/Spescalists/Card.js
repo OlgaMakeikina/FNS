@@ -1,9 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom"; // Добавь импорт Link
 import "./Specialists.css";
 
 const SpecialistCard = ({ specialist }) => {
-  const navigate = useNavigate();
-
   const transliterate = (text) => {
     return text
       .toLowerCase()
@@ -23,15 +21,17 @@ const SpecialistCard = ({ specialist }) => {
   const urlName = transliterate(specialist.name);
 
   return (
-    <div className="card" onClick={() => navigate(`/specialist/${urlName}`)}>
-      <img 
-        className="card-img" 
-        src={specialist.photos?.[0] || "/images/default.jpg"} 
-        alt={specialist.name} 
-      />
-      <h3 className="specialist-name">{specialist.name}</h3>
-      <p className="specialist-services">{specialist.services}</p>
-    </div>
+    <article className="card">
+      <Link to={`/specialist/${urlName}`} className="card-link">
+        <img 
+          className="card-img" 
+          src={specialist.photos?.[0] || "/images/default.jpg"} 
+          alt={`Фото ${specialist.name}`} 
+        />
+        <h3 className="specialist-name">{specialist.name}</h3>
+        <p className="specialist-services">{specialist.services}</p>
+      </Link>
+    </article>
   );
 };
 

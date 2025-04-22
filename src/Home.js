@@ -74,14 +74,19 @@ const Home = () => {
   return (
     <header>
       <div className="home-container">
-        <img
-          src={isMapHovered ? mapHover : map}
-          alt="map"
-          className="map"
-          onMouseEnter={() => setIsMapHovered(true)}
-          onMouseLeave={() => setIsMapHovered(false)}
-          onClick={handleMapToggle}
-        />
+      <button
+  type="button"
+  className="map-button"
+  onClick={handleMapToggle}
+  onMouseEnter={() => setIsMapHovered(true)}
+  onMouseLeave={() => setIsMapHovered(false)}
+>
+  <img
+    src={isMapHovered ? mapHover : map}
+    alt="Interactive map"
+    className="map"
+  />
+</button>
         <div className="content-wrapper">
           <div className="thesis-container">
             <div className="thesis-item">

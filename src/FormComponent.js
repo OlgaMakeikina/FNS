@@ -175,33 +175,34 @@ function FormComponent() {
             </label>
           </div>
 
-          <div className="custom-dropdown" ref={dropdownRef}>
-          <label>Категория (макс.3):*</label>
-            <div
-              className="dropdown-label"
-              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            >
-              {formData.category.length > 0
-                ? formData.category.join(", ")
-                : categoryOptions[0]} 
-              <span className="dropdown-arrow">▼</span> 
-            </div>
-            {isDropdownOpen && (
-              <div className="dropdown-options">
-                {categoryOptions.map((category, idx) => (
-                  <label key={idx} className="dropdown-option">
-                    <input
-                      type="checkbox"
-                      value={category}
-                      checked={formData.category.includes(category)}
-                      onChange={handleCategoryChange}
-                    />
-                    <span>{category}</span>
-                  </label>
-                ))}
-              </div>
-            )}
-          </div>
+          <fieldset className="custom-dropdown" ref={dropdownRef}>
+  <legend>Категория (макс.3):*</legend>
+  <button
+    type="button"
+    className="dropdown-label"
+    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+  >
+    {formData.category.length > 0
+      ? formData.category.join(", ")
+      : categoryOptions[0]}
+    <span className="dropdown-arrow">▼</span>
+  </button>
+  {isDropdownOpen && (
+    <div className="dropdown-options">
+      {categoryOptions.map((category, idx) => (
+        <label key={idx} className="dropdown-option">
+          <input
+            type="checkbox"
+            value={category}
+            checked={formData.category.includes(category)}
+            onChange={handleCategoryChange}
+          />
+          <span>{category}</span>
+        </label>
+      ))}
+    </div>
+  )}
+</fieldset>
 
           <label>
             Описание:*
@@ -283,7 +284,7 @@ function FormComponent() {
           </div>
 
           <div className="addSpecialist-contacts">
-            <label>Контакты:</label>
+          <label htmlFor="contacts">Контакты:</label>
             <div className="contacts-row">
               <input name="instagram" placeholder="Instagram" onChange={handleChange} />
               <input name="telegram" placeholder="Telegram" onChange={handleChange} />

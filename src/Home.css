@@ -24,7 +24,17 @@
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.2s ease;
 }
+.map-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-block; 
+}
 
+.map-button img {
+  display: block; 
+}
 .content-wrapper {
   position: relative;
   display: flex;
