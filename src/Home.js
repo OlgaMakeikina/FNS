@@ -21,7 +21,6 @@ const Home = () => {
   };
 
   useEffect(() => {
-    // GSAP-анимации
     gsap.fromTo(
       '.map',
       { x: '-100%' },
@@ -43,14 +42,13 @@ const Home = () => {
       { opacity: 1, duration: 1, stagger: 0.5, delay: 1.5, ease: 'power2.out' }
     );
 
-    // Автосмена изображения на мобильных
     const mobileMediaQuery = window.matchMedia('(max-width: 768px)');
     let intervalId;
 
     const startAutoSwitch = () => {
       intervalId = setInterval(() => {
         setIsMapHovered((prev) => !prev);
-      }, 3000); // Меняется каждые 3 секунды
+      }, 3000); 
     };
 
     const handleMediaQueryChange = (e) => {
@@ -61,15 +59,12 @@ const Home = () => {
       }
     };
 
-    // Проверяем начальное состояние
     if (mobileMediaQuery.matches) {
       startAutoSwitch();
     }
 
-    // Слушаем изменения размера экрана
     mobileMediaQuery.addEventListener('change', handleMediaQueryChange);
 
-    // Очистка при размонтировании
     return () => {
       clearInterval(intervalId);
       mobileMediaQuery.removeEventListener('change', handleMediaQueryChange);
@@ -77,7 +72,7 @@ const Home = () => {
   }, []);
 
   return (
-    <div>
+    <header>
       <div className="home-container">
         <img
           src={isMapHovered ? mapHover : map}
@@ -137,7 +132,7 @@ const Home = () => {
         </div>
       </div>
       <Specialists />
-    </div>
+    </header>
   );
 };
 

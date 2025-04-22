@@ -5,7 +5,7 @@ import './Lifehacks.css'
 
 const Lifehacks = () => {
   return (
-    <div>
+    <article>
       <div className="lifehacks-header">
           <h2>Статьи и лайфхаки</h2>  
           <p>Раздел будет пополняться новыми статьями!</p>
@@ -23,7 +23,7 @@ const Lifehacks = () => {
           />
         ))}
       </div>
-    </div>
+    </article>
   );
 };
 

@@ -116,7 +116,8 @@ export default function Navbar() {
   );
 
   return (
-    <div className="navbar-container">
+    <nav>
+          <div className="navbar-container">
       <Menubar
         model={items}
         start={start}
@@ -124,5 +125,7 @@ export default function Navbar() {
         onClick={() => setMobileMenuVisible(false)} 
       />
     </div>
+    </nav>
+
   );
 }

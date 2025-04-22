@@ -20,7 +20,8 @@ const WeatherWidget = () => {
   }, []);
 
   return (
-    <div className="weather-widget">
+    <article>
+         <div className="weather-widget">
       <a
         className="weatherwidget-io"
         href="https://forecast7.com/ru/n27d60n48d55/florianopolis/"
@@ -30,7 +31,9 @@ const WeatherWidget = () => {
       >
         FLORIANÓPOLIS WEATHER
       </a>
-    </div>
+    </div> 
+    </article>
+
   );
 };
 

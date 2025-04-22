@@ -4,9 +4,9 @@ import "./App.css";
 
 const AddContact = () => {
   return (
-    <div>
+    <section>
       <FormComponent />
-    </div>
+    </section>
   );
 };
 

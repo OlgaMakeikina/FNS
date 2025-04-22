@@ -7,6 +7,7 @@ import './DonationComponent.css';
 
 const DonationComponent = () => {
   return (
+    <section>
     <div className="donation-container">
       <img src={support} width="100%" alt="support" />
       <h2 className="donation-header">Поддержите наш проект</h2>
@@ -43,8 +44,9 @@ const DonationComponent = () => {
         </TabView>
       </div>
       </div>
-
     </div>
+    </section>
+
   );
 };
 
