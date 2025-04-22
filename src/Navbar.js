@@ -106,6 +106,7 @@ export default function Navbar() {
       template: itemRenderer,
       className: "custom-donate-item",
     },
+    
   ];
 
   const start = (

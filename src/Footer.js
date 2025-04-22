@@ -3,6 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import CurrencyWidget from './CurrencyWidget';
 import './Footer.css';
+import WorldClocks from './WorldClock';
 
 const Footer = () => {
   return (
@@ -44,6 +45,7 @@ const Footer = () => {
           <div className="footer-widgets">
             <div className="widget-wrapper">
               <CurrencyWidget />
+              <WorldClocks />
             </div>
           </div>
           <div className="footer-donation">

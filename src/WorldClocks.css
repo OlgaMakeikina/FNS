@@ -1,0 +1,26 @@
+.clock-widget {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 250px;
+    font-family: Inter, sans-serif;
+  }
+  
+  .clock-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .clock-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 6px;
+    gap: 10px;
+  }
+  
+  .clock-item .flag {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+  }

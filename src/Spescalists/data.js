@@ -17,7 +17,7 @@ const specialists = [
     telegramChannel: "https://t.me/Olga_Makey",
     website: "https://sweetfloripa.com/",
     instagram: "https://www.instagram.com/floripa_delivery?igsh=NDRyYzg3MTM3Zmpx",
-    contact: "+55481551466",
+    contact: "+5548991551466",
     photos: [
       "/images/floripa-delivery/floripa-delivery-1.png",
       "/images/floripa-delivery/floripa-delivery-1.jpg",
@@ -121,7 +121,7 @@ const specialists = [
     telegramChannel: "https://t.me/Olga_Makey",
     website: "https://olgamakeikina.netlify.app/",
     instagram: "https://www.instagram.com/olgamakeykina?igsh=MWpldXB4MW56MnB6cw==",
-    contact: "+55481551466",
+    contact: "+5548991551466",
     photos: [
       "/images/olga-makeikina/olga-makeikina-1.jpg",
     ],
