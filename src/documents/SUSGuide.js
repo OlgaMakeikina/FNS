@@ -10,7 +10,7 @@ const SUSGuide = () => {
         SUS (Sistema Único de Saúde) — это бразильская система бесплатного здравоохранения. Чтобы оформить Cartão SUS и получить доступ к медицинским услугам, вам нужно зарегистрироваться в ближайшей CS (Centro de Saúde). Вот пошаговая инструкция.
       </p>
 
-      <h3 className="article-section-title">1. Найдите ближайшую UBS (Unidade Básica de Saúde)</h3>
+      <h3 className="article-section-title">1. Найдите ближайший Centro de Saúde</h3>
       <p className="article-text">
         Это обычная муниципальная поликлиника по месту жительства. Найти её можно через{" "}
         <a href="https://maps.google.com" target="_blank" rel="noopener noreferrer">
@@ -21,7 +21,7 @@ const SUSGuide = () => {
 
       <h3 className="article-section-title">2. Возьмите с собой документы</h3>
       <ul className="article-list">
-        <li>Паспорт или RNE/RNM;</li>
+        <li>Паспорт или RNM;</li>
         <li>CPF (обязателен);</li>
         <li>Подтверждение адреса (коммунальный счёт, договор аренды или декларация жителя);</li>
         <li>

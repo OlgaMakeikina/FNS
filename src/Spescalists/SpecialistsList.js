@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import specialists from "./data";
 import SpecialistCard from "./Card";
 import Filter from "./Filter";
@@ -10,25 +10,36 @@ const categories = [
   "Ремонт", "Роды", "Развлечения", "Трансфер", "Уборка", "IT", "Другое"
 ];
 
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 const SpecialistsList = () => {
   const [selectedCategories, setSelectedCategories] = useState(["Все"]);
 
+  const shuffledSpecialists = useMemo(() => shuffleArray(specialists), []);
+
   const toggleCategory = (category) => {
     if (category === "Все") {
-      setSelectedCategories(["Все"]); 
+      setSelectedCategories(["Все"]);
     } else {
       setSelectedCategories(prev =>
         prev.includes(category)
-          ? prev.filter(c => c !== category) 
-          : [...prev.filter(c => c !== "Все"), category] 
+          ? prev.filter(c => c !== category)
+          : [...prev.filter(c => c !== "Все"), category]
       );
     }
   };
 
   const filteredSpecialists =
     selectedCategories.includes("Все") || selectedCategories.length === 0
-      ? specialists
-      : specialists.filter(specialist =>
+      ? shuffledSpecialists
+      : shuffledSpecialists.filter(specialist =>
           specialist.tags.some(tag => selectedCategories.includes(tag))
         );
 
@@ -55,5 +66,3 @@ const SpecialistsList = () => {
 };
 
 export default SpecialistsList;
-
-

@@ -48,7 +48,12 @@
 
 .card p {
   padding: 5px;
-  font-size: 16px;
+  font-size: 18px;
+}
+
+.card a {
+  color: #000000;
+  text-decoration: none;
 }
 
 .card-img {

@@ -202,10 +202,10 @@ const specialists = [
   {
     id: 11,
     name: `Юрий`,
-    services: "Услуги ассадора",
+    services: "Услуги асадора, мангал-мастер",
     description: "Помогу с приготовлением шураско (мясо, рыба, птица и овощи), рассчитаю объем продуктов, помогу с закупкой и доставкой.",
     price: [
-      { name: "Услуги ассадора в час", price: 50 },
+      { name: "Услуги асадора в час", price: 50 },
     ],
     address: "Florianópolis",
     telegramChannel: "https://t.me/eat_meat_floripa",
