@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
+import ReCAPTCHA from "react-google-recaptcha";
 import './FormComponent.css';
 import { Link } from "react-router-dom";
 
@@ -49,8 +50,11 @@ function FormComponent() {
   }, []);
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const { name, value, type, checked } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value
+    }));
   };
 
   const handleFileChange = (e) => {
@@ -107,7 +111,7 @@ function FormComponent() {
     });
 
     try {
-      const response = await axios.post("http://localhost:4001/api/send", data, {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send`, data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -120,7 +124,7 @@ function FormComponent() {
       if (err.response) {
         setError(`Ошибка сервера: ${err.response.data.error || err.message}`);
       } else if (err.request) {
-        setError("Сервер не отвечает. Проверьте, запущен ли сервер на порту 4001");
+        setError("Сервер не отвечает. Пожалуйста, попробуйте позже.");
       } else {
         setError(`Ошибка: ${err.message}`);
       }
@@ -176,33 +180,33 @@ function FormComponent() {
           </div>
 
           <fieldset className="custom-dropdown" ref={dropdownRef}>
-  <legend>Категория (макс.3):*</legend>
-  <button
-    type="button"
-    className="dropdown-label"
-    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-  >
-    {formData.category.length > 0
-      ? formData.category.join(", ")
-      : categoryOptions[0]}
-    <span className="dropdown-arrow">▼</span>
-  </button>
-  {isDropdownOpen && (
-    <div className="dropdown-options">
-      {categoryOptions.map((category, idx) => (
-        <label key={idx} className="dropdown-option">
-          <input
-            type="checkbox"
-            value={category}
-            checked={formData.category.includes(category)}
-            onChange={handleCategoryChange}
-          />
-          <span>{category}</span>
-        </label>
-      ))}
-    </div>
-  )}
-</fieldset>
+            <legend>Категория (макс.3):*</legend>
+            <button
+              type="button"
+              className="dropdown-label"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              {formData.category.length > 0
+                ? formData.category.join(", ")
+                : categoryOptions[0]}
+              <span className="dropdown-arrow">▼</span>
+            </button>
+            {isDropdownOpen && (
+              <div className="dropdown-options">
+                {categoryOptions.map((category, idx) => (
+                  <label key={idx} className="dropdown-option">
+                    <input
+                      type="checkbox"
+                      value={category}
+                      checked={formData.category.includes(category)}
+                      onChange={handleCategoryChange}
+                    />
+                    <span>{category}</span>
+                  </label>
+                ))}
+              </div>
+            )}
+          </fieldset>
 
           <label>
             Описание:*
@@ -284,7 +288,7 @@ function FormComponent() {
           </div>
 
           <div className="addSpecialist-contacts">
-          <label htmlFor="contacts">Контакты:</label>
+            <label htmlFor="contacts">Контакты:</label>
             <div className="contacts-row">
               <input name="instagram" placeholder="Instagram" onChange={handleChange} />
               <input name="telegram" placeholder="Telegram" onChange={handleChange} />
@@ -293,28 +297,27 @@ function FormComponent() {
               <input name="whatsapp" placeholder="WhatsApp" onChange={handleChange} />
               <input name="website" placeholder="Сайт" onChange={handleChange} />
             </div>
-          <div className="consent-row">
-          <label className="consent-label">
-  <input
-    type="checkbox"
-    name="consent"
-    checked={formData.consent}
-    onChange={handleChange}
-    required
-  />
-  <span>
-    Я подтверждаю свое согласие на размещение предоставленных персональных данных на сайте*{" "}
-    <Link to="/privacy" className="consent-link" target="_blank" rel="noopener noreferrer">
-      Политика конфиденциальности
-    </Link>
-  </span>
-</label>
+            <div className="consent-row">
+              <label className="consent-label">
+                <input
+                  type="checkbox"
+                  name="consent"
+                  checked={formData.consent}
+                  onChange={handleChange}
+                  required
+                />
+                <span>
+                  Я подтверждаю свое согласие на размещение предоставленных персональных данных на сайте*{" "}
+                  <Link to="/privacy" className="consent-link" target="_blank" rel="noopener noreferrer">
+                    Политика конфиденциальности
+                  </Link>
+                </span>
+              </label>
+            </div>
           </div>
+          <div className="contactForm-btn-cont">
+            <button className="contactForm-btn" type="submit">Отправить</button>
           </div>
-<div className="contactForm-btn-cont">
-      <button className="contactForm-btn" type="submit">Отправить</button>
-</div>
-      
         </form>
       </div>
     </div>

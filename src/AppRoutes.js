@@ -23,6 +23,8 @@ import PrivacyPolicy from "./Privacy";
 import Tourism from "./tourism/Tourism";
 import FloripaGuide from "./tourism/FloripaGuide";
 import WeatherWidget from "./WeatherWidget";
+import Balneario from "./tourism/Balneario";
+import BetoCarreroArticle from "./tourism/BetoCarrero";
 
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -62,6 +64,8 @@ export default function AppRouter() {
             <Route path="/documents/sus" element={<SUSGuide />} />
             <Route path="/lifehacks/for-child" element={<ForChild />} />
             <Route path="/tourism/floripa-guide" element={<FloripaGuide />} />
+            <Route path="/tourism/balneario-camborio" element={<Balneario />} />
+            <Route path="/tourism/beto-carrero" element={<BetoCarreroArticle />} />
             <Route path="/weather" element={<WeatherWidget />} />
           </Routes>
         </div>

@@ -6,15 +6,15 @@ const fs = require("fs");
 const nodemailer = require("nodemailer");
 
 const app = express();
-const PORT = 4001;
+const PORT = process.env.PORT || 4001; 
 
-const uploadDir = path.join(__dirname, "uploads");
+const uploadDir = path.join(__dirname, "Uploads");
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "https://floripa.live",
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"]
 }));
@@ -38,10 +38,10 @@ const upload = multer({
 });
 
 const transporter = nodemailer.createTransport({
-  service: "gmail", 
+  service: "gmail",
   auth: {
-    user: "omakeykina@gmail.com", 
-    pass: "rvbo wnvl iefx ejdp" 
+    user: "omakeykina@gmail.com",
+    pass: "rvbo wnvl iefx ejdp"
   }
 });
 
@@ -76,8 +76,8 @@ app.post("/api/send", upload.fields([
       .join("\n");
 
     const mailOptions = {
-      from: "omakeykina@gmail.com", 
-      to: "omakeykina@gmail.com",   
+      from: "omakeykina@gmail.com",
+      to: "omakeykina@gmail.com",
       subject: "Новая заявка с формы",
       text: `Получены новые данные:\n\nТекстовые поля:\n${textData}\n\nФайлы:\n${filesData}`,
       attachments: Object.keys(req.files).map(key => ({
@@ -85,7 +85,6 @@ app.post("/api/send", upload.fields([
         path: req.files[key][0].path
       }))
     };
-
 
     await transporter.sendMail(mailOptions);
     console.log("Письмо успешно отправлено");
@@ -113,8 +112,11 @@ app.use((err, req, res, next) => {
 });
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
-  console.log(`Тестовый роут: http://localhost:${PORT}/api/test`);
+  const baseUrl = process.env.NODE_ENV === "production" 
+    ? "https://floripa.live" 
+    : `http://localhost:${PORT}`;
+  console.log(`Сервер запущен на ${baseUrl}`);
+  console.log(`Тестовый роут: ${baseUrl}/api/test`);
 }).on('error', (err) => {
   console.error('Ошибка запуска сервера:', err);
 });
