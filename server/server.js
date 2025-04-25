@@ -1,60 +1,63 @@
+require('dotenv').config();
 const express = require("express");
 const cors = require("cors");
+const nodemailer = require("nodemailer");
 const multer = require("multer");
 const path = require("path");
 const fs = require("fs");
-const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 const app = express();
-const PORT = process.env.PORT || 4001; 
-
-const uploadDir = path.join(__dirname, "Uploads");
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir);
-}
+const PORT = process.env.PORT || 4001;
 
 app.use(cors({
   origin: "https://floripa.live",
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"]
 }));
-
 app.use(express.json());
-app.use("/uploads", express.static(uploadDir));
-
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, uploadDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`;
-    cb(null, uniqueName);
-  }
-});
-
-const upload = multer({ 
-  storage,
-  limits: { fileSize: 5000000 }
-});
+app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
 
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
-    user: "omakeykina@gmail.com",
-    pass: "rvbo wnvl iefx ejdp"
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS
   }
 });
 
-app.get("/", (req, res) => {
-  res.send("Server is running");
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const uploadPath = path.join(__dirname, "Uploads");
+    if (!fs.existsSync(uploadPath)) {
+      fs.mkdirSync(uploadPath);
+    }
+    cb(null, uploadPath);
+  },
+  filename: (req, file, cb) => {
+    const timestamp = Date.now();
+    cb(null, `${timestamp}-${file.originalname}`);
+  }
+});
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 5 * 1024 * 1024 },
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png/;
+    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
+    const mimetype = filetypes.test(file.mimetype);
+    if (extname && mimetype) {
+      cb(null, true);
+    } else {
+      cb(new Error("Только изображения формата JPEG или PNG!"));
+    }
+  }
 });
 
 app.get("/api/test", (req, res) => {
-  console.log("GET /api/test requested");
-  res.json({ 
-    message: "Server is working",
-    timestamp: new Date().toISOString()
-  });
+  const timestamp = new Date().toISOString();
+  res.json({ message: "Server is working", timestamp });
 });
 
 app.post("/api/send", upload.fields([
@@ -63,52 +66,83 @@ app.post("/api/send", upload.fields([
   { name: "photo3", maxCount: 1 }
 ]), async (req, res) => {
   console.log("POST /api/send requested");
-  try {
-    console.log("Body:", req.body);
-    console.log("Files:", req.files);
 
-    const textData = Object.entries(req.body)
-      .map(([key, value]) => `${key}: ${value}`)
-      .join("\n");
-    
-    const filesData = Object.keys(req.files)
-      .map(key => `${key}: ${req.files[key][0].filename} (${req.files[key][0].size} bytes)`)
-      .join("\n");
+  try {
+    // Проверка reCAPTCHA
+    const recaptchaToken = req.body.recaptchaToken;
+    if (!recaptchaToken) {
+      return res.status(400).json({ error: "reCAPTCHA token отсутствует" });
+    }
+
+    const recaptchaResponse = await axios.post(
+      `https://www.google.com/recaptcha/api/siteverify`,
+      null,
+      {
+        params: {
+          secret: process.env.RECAPTCHA_SECRET_KEY, 
+          response: recaptchaToken
+        }
+      }
+    );
+
+    if (!recaptchaResponse.data.success) {
+      return res.status(400).json({ error: "Проверка reCAPTCHA не пройдена" });
+    }
+
+    const fields = req.body;
+    const files = req.files;
+
+    const categories = Array.isArray(fields.category) 
+      ? fields.category.join(", ") 
+      : fields.category || "Не указаны";
 
     const mailOptions = {
-      from: "omakeykina@gmail.com",
-      to: "omakeykina@gmail.com",
-      subject: "Новая заявка с формы",
-      text: `Получены новые данные:\n\nТекстовые поля:\n${textData}\n\nФайлы:\n${filesData}`,
-      attachments: Object.keys(req.files).map(key => ({
-        filename: req.files[key][0].originalname,
-        path: req.files[key][0].path
-      }))
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_USER,
+      subject: `Новая заявка от ${fields.name || "Не указано"}`,
+      text: `
+        Имя: ${fields.name || "Не указано"}
+        Email: ${fields.email || "Не указано"}
+        Услуги: ${fields.service || "Не указано"}
+        Адрес: ${fields.address || "Не указано"}
+        Категории: ${categories}
+        Описание: ${fields.description || "Не указано"}
+        Цены: ${fields.price || "Не указано"}
+        Instagram: ${fields.instagram || "Не указано"}
+        Telegram: ${fields.telegram || "Не указано"}
+        WhatsApp: ${fields.whatsapp || "Не указано"}
+        Сайт: ${fields.website || "Не указано"}
+        Согласие: ${fields.consent === "true" ? "Да" : "Нет"}
+      `,
+      attachments: []
     };
+
+    if (files.photo1) {
+      mailOptions.attachments.push({
+        filename: files.photo1[0].originalname,
+        path: files.photo1[0].path
+      });
+    }
+    if (files.photo2) {
+      mailOptions.attachments.push({
+        filename: files.photo2[0].originalname,
+        path: files.photo2[0].path
+      });
+    }
+    if (files.photo3) {
+      mailOptions.attachments.push({
+        filename: files.photo3[0].originalname,
+        path: files.photo3[0].path
+      });
+    }
 
     await transporter.sendMail(mailOptions);
     console.log("Письмо успешно отправлено");
-
-    res.status(200).json({
-      message: "Форма успешно получена и отправлена на почту",
-      data: req.body,
-      files: Object.keys(req.files).map(key => ({
-        field: key,
-        filename: req.files[key][0].filename
-      }))
-    });
-  } catch (error) {
-    console.error("Server error:", error);
-    res.status(500).json({ error: "Ошибка обработки формы или отправки письма" });
+    res.status(200).json({ message: "Form submitted successfully" });
+  } catch (err) {
+    console.error("Ошибка при обработке запроса:", err);
+    res.status(500).json({ error: err.message || "Internal server error" });
   }
-});
-
-app.use((err, req, res, next) => {
-  console.error("Error:", err);
-  if (err instanceof multer.MulterError) {
-    return res.status(400).json({ error: err.message });
-  }
-  res.status(500).json({ error: "Внутренняя ошибка сервера" });
 });
 
 app.listen(PORT, () => {

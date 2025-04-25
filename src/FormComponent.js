@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import axios from "axios";
-import ReCAPTCHA from "react-google-recaptcha";
+import ReCAPTCHA from "react-google-recaptcha"; 
 import './FormComponent.css';
 import { Link } from "react-router-dom";
 
@@ -34,8 +34,9 @@ function FormComponent() {
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
-
+  const recaptchaRef = useRef(null); 
   const [error, setError] = useState(null);
+  const [recaptchaToken, setRecaptchaToken] = useState(null); 
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -85,12 +86,21 @@ function FormComponent() {
     });
   };
 
+  const handleRecaptchaChange = (token) => {
+    setRecaptchaToken(token); 
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
 
-    if (!formData.name || !formData.email || !formData.service || !formData.address || !formData.description || formData.category.length === 0 || !photos.photo1) {
-      setError("Пожалуйста, заполните все обязательные поля и загрузите фото обложки.");
+    if (!recaptchaToken) {
+      setError("Пожалуйста, подтвердите, что вы не робот.");
+      return;
+    }
+
+    if (!formData.name || !formData.email || !formData.service || !formData.address || !formData.description || formData.category.length === 0 || !photos.photo1 || !formData.consent) {
+      setError("Пожалуйста, заполните все обязательные поля, загрузите фото обложки и подтвердите согласие.");
       return;
     }
 
@@ -110,6 +120,8 @@ function FormComponent() {
       }
     });
 
+    data.append("recaptchaToken", recaptchaToken);
+
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send`, data, {
         headers: {
@@ -119,6 +131,8 @@ function FormComponent() {
       });
       console.log("Успешный ответ от сервера:", response.data);
       alert("Форма успешно отправлена!");
+      recaptchaRef.current.reset();
+      setRecaptchaToken(null);
     } catch (err) {
       console.error("Ошибка при отправке:", err);
       if (err.response) {
@@ -128,6 +142,8 @@ function FormComponent() {
       } else {
         setError(`Ошибка: ${err.message}`);
       }
+      recaptchaRef.current.reset();
+      setRecaptchaToken(null);
     }
   };
 
@@ -315,6 +331,15 @@ function FormComponent() {
               </label>
             </div>
           </div>
+
+          <div className="recaptcha-container" style={{ margin: "20px 0", display: "flex", justifyContent: "center" }}>
+            <ReCAPTCHA
+              ref={recaptchaRef}
+              sitekey="6LcZxiMrAAAAAFHOhMP1dfBUdZCZUg84c1Nl8ewk" 
+              onChange={handleRecaptchaChange}
+            />
+          </div>
+
           <div className="contactForm-btn-cont">
             <button className="contactForm-btn" type="submit">Отправить</button>
           </div>
