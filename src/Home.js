@@ -16,7 +16,7 @@ const Home = () => {
     gsap.fromTo(
       '.map',
       { scale: 1 },
-      { scale: 1, duration: 0.2, ease: 'power2.out', yoyo: true, repeat: 1 }
+      { scale: 1.05, duration: 0.2, ease: 'power2.out', yoyo: true, repeat: 1 }
     );
   };
 
@@ -47,8 +47,17 @@ const Home = () => {
 
     const startAutoSwitch = () => {
       intervalId = setInterval(() => {
-        setIsMapHovered((prev) => !prev);
-      }, 3000); 
+        setIsMapHovered((prev) => {
+          gsap.to('.map', {
+            opacity: 0,
+            duration: 0.3,
+            onComplete: () => {
+              gsap.to('.map', { opacity: 1, duration: 0.3 });
+            },
+          });
+          return !prev;
+        });
+      }, 3000);
     };
 
     const handleMediaQueryChange = (e) => {
@@ -56,6 +65,7 @@ const Home = () => {
         startAutoSwitch();
       } else {
         clearInterval(intervalId);
+        gsap.set('.map', { opacity: 1 });
       }
     };
 
@@ -74,19 +84,6 @@ const Home = () => {
   return (
     <header>
       <div className="home-container">
-      <button
-  type="button"
-  className="map-button"
-  onClick={handleMapToggle}
-  onMouseEnter={() => setIsMapHovered(true)}
-  onMouseLeave={() => setIsMapHovered(false)}
->
-  <img
-    src={isMapHovered ? mapHover : map}
-    alt="Interactive map"
-    className="map"
-  />
-</button>
         <div className="content-wrapper">
           <div className="thesis-container">
             <div className="thesis-item">
@@ -117,6 +114,19 @@ const Home = () => {
             </Link>
           </button>
         </div>
+        <button
+          type="button"
+          className="map-button"
+          onClick={handleMapToggle}
+          onMouseEnter={() => setIsMapHovered(true)}
+          onMouseLeave={() => setIsMapHovered(false)}
+        >
+          <img
+            src={isMapHovered ? mapHover : map}
+            alt="Interactive map"
+            className="map"
+          />
+        </button>
       </div>
       <div className="thesis-container-mobile">
         <div className="thesis-item">

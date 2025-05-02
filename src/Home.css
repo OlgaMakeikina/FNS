@@ -1,3 +1,4 @@
+/* src/components/Home.css */
 .home-container {
   display: flex;
   flex-direction: row;
@@ -17,24 +18,26 @@
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.7));
   position: absolute;
   right: 0;
-  top: 20;
+  top: 20px;
   object-fit: contain;
   object-position: center;
   z-index: 4;
   cursor: pointer;
   transition: opacity 0.3s ease, transform 0.2s ease;
 }
+
 .map-button {
   background: none;
   border: none;
   padding: 0;
   cursor: pointer;
-  display: inline-block; 
+  display: inline-block;
 }
 
 .map-button img {
-  display: block; 
+  display: block;
 }
+
 .content-wrapper {
   position: relative;
   display: flex;
@@ -70,7 +73,7 @@
   font-size: 2rem;
   margin-top: 0;
   color: #009B3A;
-  font-family: "Pacifico", cursive;
+  font-family: 'Pacifico', cursive;
   text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
   position: relative;
   display: inline-flex;
@@ -172,10 +175,12 @@
   font-weight: 600;
 }
 
+/* --- МЕДИА ЗАПРОСЫ --- */
 @media (max-width: 1024px) {
   .home-container {
     padding: 10px;
     flex-direction: column;
+    align-items: center;
   }
 
   .content-wrapper {
@@ -184,6 +189,7 @@
   }
 
   .header-content {
+    order: 1;
     margin: 20px 0 15px;
     width: 90%;
     max-width: none;
@@ -195,22 +201,28 @@
   }
 
   .header-content h1 {
-    font-size: 2.5rem; 
+    font-size: 2.5rem;
   }
 
   .header-content h3 {
     font-size: 2rem;
-    font-family: "Pacifico", cursive;
   }
 
   .home-button {
+    order: 2;
     padding: 12px 25px;
     margin-bottom: 15px;
-    order: 2;
   }
 
   .home-button-link {
-    font-size: 18px; 
+    font-size: 18px;
+  }
+
+  .map-button {
+    order: 3;
+    display: block;
+    width: 90%;
+    margin: 0 auto 30px;
   }
 
   .map {
@@ -220,11 +232,9 @@
     width: 100%;
     height: auto;
     max-height: 70vh;
-    margin: 0 auto 20px;
     object-fit: contain;
     object-position: center;
-    transition: opacity 0.3s ease, transform 0.2s ease;
-    order: 3;
+    z-index: 2;
   }
 
   .thesis-container {
@@ -234,95 +244,92 @@
   .thesis-container-mobile {
     display: flex;
     width: 70%;
-    margin-left: 15%;
+    margin: 0 auto 15px;
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    z-index: 2;
     order: 4;
+    z-index: 2;
   }
-.thesis-item {
-  width: 100%;
-}
+
+  .thesis-item {
+    width: 100%;
+  }
+
   .thesis-container-mobile .thesis-item {
     padding: 15px;
   }
 
   .thesis-container-mobile .thesis-item p:first-child {
-    font-size: 18px; 
+    font-size: 18px;
   }
 }
+
 @media (max-width: 853px) {
   .map {
-height: 60vh;
-margin-bottom: 100px;
+    max-height: 60vh;
+    margin-bottom: 30px;
   }
 }
+
 @media (max-width: 540px) {
   .map {
-height: 50vh;
-margin-bottom: 100px;
+    max-height: 50vh;
+    margin-bottom: 30px;
+    margin-top: 20px;
   }
+
   .header-content h1 {
-    font-size: 1.8rem; 
+    font-size: 1.8rem;
     margin-top: 0;
   }
+
   .header-content h3 {
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     margin-top: 0;
   }
 }
+
 @media (max-width: 480px) {
-  .header-content h1 {
-    font-size: 1.8rem; 
-    margin-top: 0;
-  }
-
-  .header-content h3 {
-    font-size: 1.5rem; 
-    margin-top: 0;
-  }
-
   .home-button {
     padding: 7px 10px;
   }
 
   .home-button-link {
-    font-size: 18px; 
+    font-size: 16px;
   }
 
   .thesis-container-mobile .thesis-item p:first-child {
-    font-size: 18px;
+    font-size: 16px;
   }
 
   .map {
     max-height: 50vh;
-    margin-bottom: 100px;
-    margin-top: 50px;
+    margin-bottom: 30px;
+    margin-top: 20px;
   }
 }
 
 @media (max-width: 376px) {
   .header-content h1 {
-    font-size: 2rem; 
+    font-size: 1.6rem;
   }
 
   .header-content h3 {
-    font-size: 1.8rem; 
+    font-size: 1.3rem;
   }
+
   .home-button {
     margin-top: 0;
   }
+
   .home-button-link {
-    font-size: 14px; 
+    font-size: 14px;
   }
 
-  .thesis-container-mobile .thesis-item p:first-child {
-    font-size: 18px;
-  }
   .map {
     max-height: 45vh;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
     margin-top: 20px;
   }
 }
