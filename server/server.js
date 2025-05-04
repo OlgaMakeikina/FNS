@@ -37,6 +37,14 @@ app.use(cors({
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
 
+// Обслуживание фронтенда в продакшене
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
+
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
@@ -77,7 +85,7 @@ const upload = multer({
 app.get("/api/test", (req, res) => {
   const timestamp = new Date().toISOString();
   logger.info(`GET /api/test accessed at ${timestamp}`);
-  res.json({ message: "Server is working", timestamp });
+  res.json({ message: "Сервер работает", timestamp });
 });
 
 app.post("/api/send", upload.fields([
@@ -170,10 +178,10 @@ app.post("/api/send", upload.fields([
     cleanupFiles();
 
     logger.info("Письмо успешно отправлено");
-    res.status(200).json({ message: "Form submitted successfully" });
+    res.status(200).json({ message: "Форма успешно отправлена" });
   } catch (err) {
     logger.error("Ошибка при обработке запроса", { error: err.message });
-    res.status(500).json({ error: err.message || "Internal server error" });
+    res.status(500).json({ error: err.message || "Внутренняя ошибка сервера" });
   }
 });
 
