@@ -1,93 +1,92 @@
-import React, { useState, useRef, useEffect } from "react";
-import axios from "axios";
-import ReCAPTCHA from "react-google-recaptcha"; 
+import React, { useState, useRef, useEffect } from 'react';
+import axios from 'axios';
+import ReCAPTCHA from 'react-google-recaptcha';
 import './FormComponent.css';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 function FormComponent() {
   const [formData, setFormData] = useState({
-    name: "",
-    service: "",
-    description: "",
-    address: "",
+    name: '',
+    service: '',
+    description: '',
+    address: '',
     category: [],
-    instagram: "",
-    telegram: "",
-    whatsapp: "",
-    website: "",
-    price: "",
-    email: "",
-    consent: false 
+    instagram: '',
+    telegram: '',
+    whatsapp: '',
+    website: '',
+    price: '',
+    email: '',
+    consent: false,
   });
 
   const categoryOptions = [
-    "Авто", "Бизнес", "Дети", "Документы", "Доставка", "Еда", "Красота", 
-    "Медицина", "Недвижимость", "Образование", "Одежда", "Переводчик", "Питомцы", 
-    "Ремонт", "Роды", "Развлечения", "Трансфер", "Уборка", "IT", "Другое"
+    'Авто', 'Бизнес', 'Дети', 'Документы', 'Доставка', 'Еда', 'Красота',
+    'Медицина', 'Недвижимость', 'Образование', 'Одежда', 'Переводчик', 'Питомцы',
+    'Ремонт', 'Роды', 'Развлечения', 'Трансфер', 'Уборка', 'IT', 'Другое',
   ];
 
   const [photos, setPhotos] = useState({
     photo1: null,
     photo2: null,
-    photo3: null
+    photo3: null,
   });
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const dropdownRef = useRef(null);
-  const recaptchaRef = useRef(null); 
   const [error, setError] = useState(null);
-  const [recaptchaToken, setRecaptchaToken] = useState(null); 
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
+  const dropdownRef = useRef(null);
+  const recaptchaRef = useRef(null);
 
   useEffect(() => {
-    function handleClickOutside(event) {
+    const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
-    }
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
     };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: type === "checkbox" ? checked : value
+      [name]: type === 'checkbox' ? checked : value,
     }));
   };
 
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setPhotos(prev => ({ ...prev, [e.target.name]: file }));
+      setPhotos((prev) => ({ ...prev, [e.target.name]: file }));
     }
   };
 
   const handleCategoryChange = (e) => {
     const value = e.target.value;
-    setFormData(prev => {
+    setFormData((prev) => {
       const currentCategories = prev.category;
       if (currentCategories.includes(value)) {
         return {
           ...prev,
-          category: currentCategories.filter(c => c !== value)
+          category: currentCategories.filter((c) => c !== value),
         };
       } else if (currentCategories.length < 3) {
         return {
           ...prev,
-          category: [...currentCategories, value]
+          category: [...currentCategories, value],
         };
       } else {
-        setError("Можно выбрать не более 3 категорий.");
+        setError('Можно выбрать не более 3 категорий.');
         return prev;
       }
     });
   };
 
   const handleRecaptchaChange = (token) => {
-    setRecaptchaToken(token); 
+    setRecaptchaToken(token);
+    setError(null); 
   };
 
   const handleSubmit = async (e) => {
@@ -95,21 +94,29 @@ function FormComponent() {
     setError(null);
 
     if (!recaptchaToken) {
-      setError("Пожалуйста, подтвердите, что вы не робот.");
+      setError('Пожалуйста, подтвердите, что вы не робот.');
       return;
     }
 
-    if (!formData.name || !formData.email || !formData.service || !formData.address || !formData.description || formData.category.length === 0 || !photos.photo1 || !formData.consent) {
-      setError("Пожалуйста, заполните все обязательные поля, загрузите фото обложки и подтвердите согласие.");
+    if (
+      !formData.name ||
+      !formData.email ||
+      !formData.service ||
+      !formData.address ||
+      !formData.description ||
+      formData.category.length === 0 ||
+      !photos.photo1 ||
+      !formData.consent
+    ) {
+      setError('Пожалуйста, заполните все обязательные поля, загрузите фото обложки и подтвердите согласие.');
       return;
     }
 
     const data = new FormData();
-    
     Object.entries(formData).forEach(([key, value]) => {
       if (Array.isArray(value)) {
-        value.forEach(val => data.append("category", val));
-      } else if (value) {
+        value.forEach((val) => data.append('category', val));
+      } else if (value || typeof value === 'boolean') {
         data.append(key, value);
       }
     });
@@ -120,25 +127,40 @@ function FormComponent() {
       }
     });
 
-    data.append("recaptchaToken", recaptchaToken);
+    data.append('recaptchaToken', recaptchaToken);
 
     try {
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send`, data, {
         headers: {
-          "Content-Type": "multipart/form-data",
+          'Content-Type': 'multipart/form-data',
         },
-        timeout: 30000 
+        timeout: 60000,
       });
-      console.log("Успешный ответ от сервера:", response.data);
-      alert("Форма успешно отправлена!");
-      recaptchaRef.current.reset();
+      console.log('Успешный ответ от сервера:', response.data);
+      alert('Форма успешно отправлена!');
+      setFormData({
+        name: '',
+        service: '',
+        description: '',
+        address: '',
+        category: [],
+        instagram: '',
+        telegram: '',
+        whatsapp: '',
+        website: '',
+        price: '',
+        email: '',
+        consent: false,
+      });
+      setPhotos({ photo1: null, photo2: null, photo3: null });
       setRecaptchaToken(null);
+      recaptchaRef.current.reset();
     } catch (err) {
-      console.error("Ошибка при отправке:", err);
+      console.error('Ошибка при отправке:', err);
       if (err.response) {
         setError(`Ошибка сервера: ${err.response.data.error || err.message}`);
       } else if (err.request) {
-        setError("Сервер не отвечает. Пожалуйста, попробуйте позже.");
+        setError('Сервер не отвечает. Пожалуйста, попробуйте позже.');
       } else {
         setError(`Ошибка: ${err.message}`);
       }
@@ -151,16 +173,18 @@ function FormComponent() {
     <div>
       <div className="addSpecialist-header">
         <h2>Добавить специалиста</h2>
-        <p>Если вы хотите разместить на сайте информацию о своих услугах, заполните форму ниже. Ваша карточка будет создана в течение 5 рабочих дней.</p>  
+        <p>
+          Если вы хотите разместить на сайте информацию о своих услугах, заполните форму ниже. Ваша карточка будет создана в течение 5 рабочих дней.
+        </p>
       </div>
-   
+
       <div className="addSpecialistForm">
-        {error && <div style={{ color: "red" }}>{error}</div>}
+        {error && <div style={{ color: 'red', marginBottom: '10px', fontFamily: 'Inter, sans-serif' }}>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className="form-row">
             <label>
               Ваше имя или название организации:*
-              <input name="name" onChange={handleChange} required />
+              <input name="name" value={formData.name} onChange={handleChange} required />
             </label>
             <label>
               E-mail:*
@@ -168,6 +192,7 @@ function FormComponent() {
                 type="email"
                 name="email"
                 placeholder="example@mail.com"
+                value={formData.email}
                 onChange={handleChange}
                 required
               />
@@ -180,17 +205,19 @@ function FormComponent() {
               <input
                 name="service"
                 placeholder="напр., ремонт бытовой техники, услуги косметолога, трансфер в аэропорт"
+                value={formData.service}
                 onChange={handleChange}
                 required
               />
             </label>
             <label>
               Адрес:*
-              <input 
-                name="address" 
+              <input
+                name="address"
                 placeholder="точный адрес или просто город/район"
-                onChange={handleChange} 
-                required 
+                value={formData.address}
+                onChange={handleChange}
+                required
               />
             </label>
           </div>
@@ -202,9 +229,7 @@ function FormComponent() {
               className="dropdown-label"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
-              {formData.category.length > 0
-                ? formData.category.join(", ")
-                : categoryOptions[0]}
+              {formData.category.length > 0 ? formData.category.join(', ') : categoryOptions[0]}
               <span className="dropdown-arrow">▼</span>
             </button>
             {isDropdownOpen && (
@@ -226,35 +251,33 @@ function FormComponent() {
 
           <label>
             Описание:*
-            <textarea name="description" onChange={handleChange} required />
+            <textarea name="description" value={formData.description} onChange={handleChange} required />
           </label>
           <label>
             Прайс (в формате: услуга — цена в реалах):
-            <textarea 
-              name="price" 
-              placeholder="напр. стрижка мужская - 100, стрижка детская от - 80" 
-              onChange={handleChange} 
+            <textarea
+              name="price"
+              placeholder="напр. стрижка мужская - 100, стрижка детская от - 80"
+              value={formData.price}
+              onChange={handleChange}
             />
           </label>
-        
+
           <div className="photo-row">
             <label className="custom-file-upload">
               Фото обложки (квадратное):*
               <div className="file-upload-wrapper">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("photo1").click()}
-                >
+                <button type="button" onClick={() => document.getElementById('photo1').click()}>
                   +
                 </button>
-                <span>{photos.photo1 ? photos.photo1.name : "Файл не выбран"}</span>
+                <span>{photos.photo1 ? photos.photo1.name : 'Файл не выбран'}</span>
                 <input
                   type="file"
                   id="photo1"
                   name="photo1"
                   onChange={handleFileChange}
                   accept="image/*"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                   required
                 />
               </div>
@@ -263,20 +286,17 @@ function FormComponent() {
             <label className="custom-file-upload">
               Фото для галереи 2 (квадратное):
               <div className="file-upload-wrapper">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("photo2").click()}
-                >
+                <button type="button" onClick={() => document.getElementById('photo2').click()}>
                   +
                 </button>
-                <span>{photos.photo2 ? photos.photo2.name : "Файл не выбран"}</span>
+                <span>{photos.photo2 ? photos.photo2.name : 'Файл не выбран'}</span>
                 <input
                   type="file"
                   id="photo2"
                   name="photo2"
                   onChange={handleFileChange}
                   accept="image/*"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                 />
               </div>
             </label>
@@ -284,20 +304,17 @@ function FormComponent() {
             <label className="custom-file-upload">
               Фото для галереи 3 (квадратное):
               <div className="file-upload-wrapper">
-                <button
-                  type="button"
-                  onClick={() => document.getElementById("photo3").click()}
-                >
+                <button type="button" onClick={() => document.getElementById('photo3').click()}>
                   +
                 </button>
-                <span>{photos.photo3 ? photos.photo3.name : "Файл не выбран"}</span>
+                <span>{photos.photo3 ? photos.photo3.name : 'Файл не выбран'}</span>
                 <input
                   type="file"
                   id="photo3"
                   name="photo3"
                   onChange={handleFileChange}
                   accept="image/*"
-                  style={{ display: "none" }}
+                  style={{ display: 'none' }}
                 />
               </div>
             </label>
@@ -306,12 +323,32 @@ function FormComponent() {
           <div className="addSpecialist-contacts">
             <label htmlFor="contacts">Контакты:</label>
             <div className="contacts-row">
-              <input name="instagram" placeholder="Instagram" onChange={handleChange} />
-              <input name="telegram" placeholder="Telegram" onChange={handleChange} />
+              <input
+                name="instagram"
+                placeholder="Instagram"
+                value={formData.instagram}
+                onChange={handleChange}
+              />
+              <input
+                name="telegram"
+                placeholder="Telegram"
+                value={formData.telegram}
+                onChange={handleChange}
+              />
             </div>
             <div className="contacts-row">
-              <input name="whatsapp" placeholder="WhatsApp" onChange={handleChange} />
-              <input name="website" placeholder="Сайт" onChange={handleChange} />
+              <input
+                name="whatsapp"
+                placeholder="WhatsApp"
+                value={formData.whatsapp}
+                onChange={handleChange}
+              />
+              <input
+                name="website"
+                placeholder="Сайт"
+                value={formData.website}
+                onChange={handleChange}
+              />
             </div>
             <div className="consent-row">
               <label className="consent-label">
@@ -323,7 +360,7 @@ function FormComponent() {
                   required
                 />
                 <span>
-                  Я подтверждаю свое согласие на размещение предоставленных персональных данных на сайте*{" "}
+                  Я подтверждаю свое согласие на размещение предоставленных персональных данных на сайте*{' '}
                   <Link to="/privacy" className="consent-link" target="_blank" rel="noopener noreferrer">
                     Политика конфиденциальности
                   </Link>
@@ -332,16 +369,19 @@ function FormComponent() {
             </div>
           </div>
 
-          <div className="recaptcha-container" style={{ margin: "20px 0", display: "flex", justifyContent: "center" }}>
+          <div className="recaptcha-container" style={{ margin: '20px 0', display: 'flex', justifyContent: 'center' }}>
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6LcZxiMrAAAAAFHOhMP1dfBUdZCZUg84c1Nl8ewk" 
+              sitekey="6Lf3pworAAAAAJgE14TSN1-I9w9BSQKKWO8FUVu9" 
               onChange={handleRecaptchaChange}
+              hl="ru" 
             />
           </div>
 
           <div className="contactForm-btn-cont">
-            <button className="contactForm-btn" type="submit">Отправить</button>
+            <button className="contactForm-btn" type="submit">
+              Отправить
+            </button>
           </div>
         </form>
       </div>

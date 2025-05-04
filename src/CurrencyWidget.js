@@ -1,8 +1,8 @@
+// src/components/CurrencyWidget.jsx
 import React, { useEffect, useState } from 'react';
 import './Widget.css';
 
 const CurrencyWidget = () => {
-
   const [rates, setRates] = useState({});
   const [formattedDate, setFormattedDate] = useState('');
   const [loading, setLoading] = useState(true);
@@ -24,7 +24,6 @@ const CurrencyWidget = () => {
       .then((data) => {
         setRates({
           RUB: data.rates.RUB,
-          EUR: data.rates.EUR,
           BRL: data.rates.BRL,
         });
         setFormattedDate(formatDate(data.date));
@@ -37,40 +36,40 @@ const CurrencyWidget = () => {
   }, []);
 
   const flags = {
+    USD: 'https://flagcdn.com/w40/us.png',
     RUB: 'https://flagcdn.com/w40/ru.png',
-    EUR: 'https://flagcdn.com/w40/eu.png',
     BRL: 'https://flagcdn.com/w40/br.png',
   };
 
   if (loading) return <p>Загрузка курсов валют...</p>;
 
+  const usdToBrl = rates.BRL ? rates.BRL.toFixed(2) : 'N/A';
+  const brlToRub = rates.RUB && rates.BRL ? (rates.RUB / rates.BRL).toFixed(2) : 'N/A';
+  const usdToRub = rates.RUB ? rates.RUB.toFixed(2) : 'N/A';
+
   return (
-    <div style={{
-      border: '1px solid #ccc',
-      padding: '1rem',
-      borderRadius: '8px',
-      maxWidth: '250px',
-      fontFamily: 'Inter, sans-serif'
-    }}>
-      <h3>Курс USD</h3>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {Object.entries(rates).map(([currency, rate]) => (
-          <li key={currency} style={{ display: 'flex', alignItems: 'center', marginBottom: '6px' }}>
-            <img
-              src={flags[currency]}
-              alt={currency}
-              style={{ width: '24px', height: '16px', marginRight: '10px', objectFit: 'cover' }}
-            />
-            <span>{currency}: {rate}</span>
-          </li>
-        ))}
+    <div className="currency-widget">
+      <h3>Курсы валют</h3>
+      <ul>
+        <li>
+          <img src={flags.USD} alt="USD" />
+          <span>1 USD = {usdToBrl} BRL</span>
+          <img src={flags.BRL} alt="BRL" className="flag-right" />
+        </li>
+        <li>
+          <img src={flags.BRL} alt="BRL" />
+          <span>1 BRL = {brlToRub} RUB</span>
+          <img src={flags.RUB} alt="RUB" className="flag-right" />
+        </li>
+        <li>
+          <img src={flags.USD} alt="USD" />
+          <span>1 USD = {usdToRub} RUB</span>
+          <img src={flags.RUB} alt="RUB" className="flag-right" />
+        </li>
       </ul>
-      <p style={{ fontSize: '0.9rem', color: '#666', marginTop: '10px' }}>
-        Обновлено: {formattedDate}
-      </p>
+      <p>Обновлено: {formattedDate}</p>
     </div>
   );
-}
-  
-  export default CurrencyWidget;
-  
+};
+
+export default CurrencyWidget;

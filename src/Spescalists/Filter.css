@@ -16,9 +16,8 @@
     background: #F5F5F5;
     border: #7b7b7c solid 1px;
     font-weight: bold;
-    padding: 5px;
+    padding: 5px 18px;
     border-radius: 5px;
-    width: 120px;
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
     cursor: pointer;

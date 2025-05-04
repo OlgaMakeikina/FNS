@@ -67,7 +67,7 @@ const Footer = () => {
         <hr />
         <p>
           <b>© {new Date().getFullYear()} Флорипа на связи.</b> Все права защищены. Дизайн и разработка от{' '}
-          <a href="https://olgamakeikina.netlify.app/" target="_blank" rel="noopener noreferrer">
+          <a href="https://t.me/Olga_Makey" target="_blank" rel="noopener noreferrer">
             Ольга Макейкина
           </a>
         </p>

@@ -28,3 +28,57 @@
     width: 100%;
     display: block;
   }
+  .currency-widget {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    border-radius: 8px;
+    max-width: 250px;
+    font-family: Inter, sans-serif;
+  }
+  
+  .currency-widget h3 {
+    margin: 0 0 10px;
+    font-size: 1.2rem;
+  }
+  
+  .currency-widget ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 10px;
+  }
+  
+  .currency-widget li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 6px;
+  }
+  
+  .currency-widget img {
+    width: 24px;
+    height: 16px;
+    object-fit: cover;
+    margin-right: 10px;
+  }
+  
+  .currency-widget .flag-right {
+    margin-right: 0;
+    margin-left: 10px;
+  }
+  
+  .currency-widget span {
+    font-size: 1rem;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .currency-widget p {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0;
+    text-align: center;
+  }
+  
+  .currency-widget p::before {
+    content: 'Обновлено: ';
+  }
