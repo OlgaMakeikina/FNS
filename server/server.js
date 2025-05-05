@@ -30,27 +30,22 @@ if (!process.env.RECAPTCHA_SECRET_KEY || !process.env.EMAIL_USER || !process.env
 }
 
 app.use(cors({
-  origin: "https://floripa.live",
+  origin: ["https://floripa.live", "http://localhost:3000"],
   methods: ["GET", "POST"],
   allowedHeaders: ["Content-Type"],
 }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
 
-// Обслуживание фронтенда в продакшене
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "build")));
-  app.get(/^(?!\/api).*/, (req, res) => {
-    res.sendFile(path.join(__dirname, "build", "index.html"));
-  });
-}
+app.use((req, res, next) => {
+  logger.info(`Получен запрос: ${req.method} ${req.url}`);
+  next();
+});
 
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS,
-  },
+app.get("/api/test", (req, res) => {
+  const timestamp = new Date().toISOString();
+  logger.info(`GET /api/test accessed at ${timestamp}`);
+  res.json({ message: "Сервер работает", timestamp });
 });
 
 const storage = multer.diskStorage({
@@ -82,18 +77,12 @@ const upload = multer({
   },
 });
 
-app.get("/api/test", (req, res) => {
-  const timestamp = new Date().toISOString();
-  logger.info(`GET /api/test accessed at ${timestamp}`);
-  res.json({ message: "Сервер работает", timestamp });
-});
-
 app.post("/api/send", upload.fields([
   { name: "photo1", maxCount: 1 },
   { name: "photo2", maxCount: 1 },
   { name: "photo3", maxCount: 1 },
 ]), async (req, res) => {
-  logger.info("POST /api/send requested");
+  logger.info("POST /api/send запрошен");
 
   try {
     const recaptchaToken = req.body.recaptchaToken;
@@ -185,8 +174,15 @@ app.post("/api/send", upload.fields([
   }
 });
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "build")));
+  app.get(/^(?!\/api).*/, (req, res) => {
+    res.sendFile(path.join(__dirname, "build", "index.html"));
+  });
+}
+
 app.listen(PORT, () => {
-  const baseUrl = "https://floripa.live";
+  const baseUrl = process.env.NODE_ENV === "production" ? "https://floripa.live" : `http://localhost:${PORT}`;
   logger.info(`Сервер запущен на ${baseUrl}`);
   logger.info(`Тестовый роут: ${baseUrl}/api/test`);
 }).on("error", (err) => {

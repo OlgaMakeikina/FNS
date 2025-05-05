@@ -86,7 +86,7 @@ function FormComponent() {
 
   const handleRecaptchaChange = (token) => {
     setRecaptchaToken(token);
-    setError(null); 
+    setError(null);
   };
 
   const handleSubmit = async (e) => {
@@ -130,6 +130,7 @@ function FormComponent() {
     data.append('recaptchaToken', recaptchaToken);
 
     try {
+      console.log('Отправка запроса на:', `${process.env.REACT_APP_API_URL}/api/send`);
       const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send`, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -158,9 +159,9 @@ function FormComponent() {
     } catch (err) {
       console.error('Ошибка при отправке:', err);
       if (err.response) {
-        setError(`Ошибка сервера: ${err.response.data.error || err.message}`);
+        setError(`Ошибка сервера: ${err.response.status} - ${err.response.data.error || err.message}`);
       } else if (err.request) {
-        setError('Сервер не отвечает. Пожалуйста, попробуйте позже.');
+        setError('Сервер не отвечает. Пожалуйста, проверьте подключение или попробуйте позже.');
       } else {
         setError(`Ошибка: ${err.message}`);
       }
@@ -372,9 +373,9 @@ function FormComponent() {
           <div className="recaptcha-container" style={{ margin: '20px 0', display: 'flex', justifyContent: 'center' }}>
             <ReCAPTCHA
               ref={recaptchaRef}
-              sitekey="6Lf3pworAAAAAJgE14TSN1-I9w9BSQKKWO8FUVu9" 
+              sitekey="6Lf3pworAAAAAJgE14TSN1-I9w9BSQKKWO8FUVu9"
               onChange={handleRecaptchaChange}
-              hl="ru" 
+              hl="ru"
             />
           </div>
 
