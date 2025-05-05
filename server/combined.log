@@ -1,0 +1,5 @@
+{"level":"info","message":"Сервер запущен","port":"4001","timestamp":"2025-05-05T13:24:14.597Z","url":"http://localhost:4001"}
+{"level":"info","message":"Тестовый роут: http://localhost:4001/api/test","timestamp":"2025-05-05T13:24:14.601Z"}
+{"level":"info","message":"Сервер запущен","port":"4001","timestamp":"2025-05-05T13:27:26.413Z","url":"http://localhost:4001"}
+{"level":"info","message":"Тестовый роут: http://localhost:4001/api/test","timestamp":"2025-05-05T13:27:26.416Z"}
+{"error":"listen EADDRINUSE: address already in use :::4001","level":"error","message":"Ошибка запуска сервера","timestamp":"2025-05-05T13:27:26.416Z"}

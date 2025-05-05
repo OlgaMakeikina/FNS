@@ -39,6 +39,7 @@ function FormComponent() {
   const recaptchaRef = useRef(null);
 
   useEffect(() => {
+    console.log('Компонент FormComponent смонтирован');
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
@@ -59,6 +60,7 @@ function FormComponent() {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      console.log(`Файл выбран: ${e.target.name}`, { name: file.name, size: file.size });
       setPhotos((prev) => ({ ...prev, [e.target.name]: file }));
     }
   };
@@ -68,23 +70,27 @@ function FormComponent() {
     setFormData((prev) => {
       const currentCategories = prev.category;
       if (currentCategories.includes(value)) {
+        console.log(`Категория удалена: ${value}`);
         return {
           ...prev,
           category: currentCategories.filter((c) => c !== value),
         };
       } else if (currentCategories.length < 3) {
+        console.log(`Категория добавлена: ${value}`);
         return {
           ...prev,
           category: [...currentCategories, value],
         };
       } else {
         setError('Можно выбрать не более 3 категорий.');
+        console.log('Ошибка: превышен лимит категорий');
         return prev;
       }
     });
   };
 
   const handleRecaptchaChange = (token) => {
+    console.log('reCAPTCHA токен получен', { token: !!token });
     setRecaptchaToken(token);
     setError(null);
   };
@@ -92,9 +98,11 @@ function FormComponent() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    console.log('Отправка формы начата', { formData, photos: Object.keys(photos).filter(k => photos[k]) });
 
     if (!recaptchaToken) {
       setError('Пожалуйста, подтвердите, что вы не робот.');
+      console.log('Ошибка: отсутствует reCAPTCHA токен');
       return;
     }
 
@@ -109,6 +117,7 @@ function FormComponent() {
       !formData.consent
     ) {
       setError('Пожалуйста, заполните все обязательные поля, загрузите фото обложки и подтвердите согласие.');
+      console.log('Ошибка: не заполнены обязательные поля', { formData, photos });
       return;
     }
 
@@ -128,16 +137,18 @@ function FormComponent() {
     });
 
     data.append('recaptchaToken', recaptchaToken);
+    console.log('FormData подготовлена', { fields: [...data.entries()].map(([k, v]) => ({ [k]: v instanceof File ? v.name : v })) });
 
     try {
-      console.log('Отправка запроса на:', `${process.env.REACT_APP_API_URL}/api/send`);
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/send`, data, {
+      const apiUrl = `${process.env.REACT_APP_API_URL}/api/send`;
+      console.log('Отправка запроса', { url: apiUrl });
+      const response = await axios.post(apiUrl, data, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
         timeout: 60000,
       });
-      console.log('Успешный ответ от сервера:', response.data);
+      console.log('Успешный ответ от сервера', { status: response.status, data: response.data });
       alert('Форма успешно отправлена!');
       setFormData({
         name: '',
@@ -157,7 +168,10 @@ function FormComponent() {
       setRecaptchaToken(null);
       recaptchaRef.current.reset();
     } catch (err) {
-      console.error('Ошибка при отправке:', err);
+      console.error('Ошибка при отправке', {
+        message: err.message,
+        response: err.response ? { status: err.response.status, data: err.response.data } : null,
+      });
       if (err.response) {
         setError(`Ошибка сервера: ${err.response.status} - ${err.response.data.error || err.message}`);
       } else if (err.request) {
