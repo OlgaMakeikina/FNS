@@ -140,8 +140,11 @@ function FormComponent() {
     console.log('FormData подготовлена', { fields: [...data.entries()].map(([k, v]) => ({ [k]: v instanceof File ? v.name : v })) });
 
     try {
-      const apiUrl = `${process.env.REACT_APP_API_URL}/api/send`;
+      // Use environment variable with fallback
+      const apiUrl = `${process.env.REACT_APP_API_URL || 'https://floripa.live'}/api/send`;
       console.log('Отправка запроса', { url: apiUrl });
+      console.log('Form data keys:', [...data.keys()]);
+      
       const response = await axios.post(apiUrl, data, {
         headers: {
           'Content-Type': 'multipart/form-data',

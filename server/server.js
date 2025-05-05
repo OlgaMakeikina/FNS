@@ -49,8 +49,9 @@ if (!process.env.RECAPTCHA_SECRET_KEY || !process.env.EMAIL_USER || !process.env
 
 app.use(cors({
   origin: ["https://floripa.live", "http://localhost:3000"],
-  methods: ["GET", "POST"],
-  allowedHeaders: ["Content-Type"],
+  methods: ["GET", "POST", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Origin", "X-Requested-With", "Accept"],
+  credentials: true
 }));
 app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "Uploads")));
@@ -213,6 +214,18 @@ app.post("/api/send", upload.fields([
     res.status(500).json({ error: err.message || "Внутренняя ошибка сервера" });
   }
 });
+
+// API route debugging
+app.use((req, res, next) => {
+  logger.info(`Входящий запрос: ${req.method} ${req.url}`, {
+    headers: req.headers,
+    body: req.body,
+  });
+  next();
+});
+
+// Разрешаем опции для preflight CORS запросов
+app.options('/api/send', cors());
 
 // Обслуживание фронтенда
 if (process.env.NODE_ENV === "production") {
