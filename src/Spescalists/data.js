@@ -217,6 +217,45 @@ const specialists = [
     ],
     tags: ["Еда"],
   },
+  {
+    id: 12,
+    name: `Irina`,
+    services: "Комбинированный маникюр и педикюр, работа со сложными стопами",
+    description: "Мастер ногтевого сервиса (маникюр/педикюр)",
+    price: [
+      { name: "Маникюр", price: 100 },
+      { name: "Педикюр от", price: 140 },
+    ],
+    address: "R. Brisamar, 191 - Ingleses Norte, Florianópolis - SC, 88058-570",
+    telegramChannel: "https://t.me/irina_metso",
+    website: "",
+    instagram: "https://www.instagram.com/irina_metso_nails/?igsh=ZWN6eTFuZzZseThk#",
+    contact: "+5548988097570",
+    photos: [
+      "/images/irina-metso/irina-metso-1.jpg",
+      "/images/irina-metso/irina-metso-2.jpg",
+      "/images/irina-metso/irina-metso-3.png",
+    ],
+    tags: ["Красота"],
+  },
+  {
+    id: 13,
+    name: `Time315 investimentos`,
+    services: "Обмен usdt, руб., на бразильский реал.",
+    description: "Оплачиваем автомобили и недвижимость от вашего имени. Содействие в получении ВНЖ через инвестиции. Мы занимаемся обменом с 2020 года — надёжно, конфиденциально и с индивидуальным подходом. Имеем собственные пункты приёма наличных в десятках стран и сотнях городов по всему миру.",
+    price: [
+      { name: "Комиссия 2% от спот рынка usdt/brl (Binance)", price: 0 },
+    ],
+    address: "Флорианополис",
+    telegramChannel: "https://t.me/Time315",
+    website: "https://time315.pro/",
+    instagram: "",
+    contact: "+79233157315",
+    photos: [
+      "/images/time315/time315.jpg",
+    ],
+    tags: ["Деньги", "Другое"],
+  },
 ];
 
 export default specialists;
