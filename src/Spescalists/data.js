@@ -278,6 +278,46 @@ const specialists = [
     ],
     tags: ["Бизнес", "Недвижимость"],
   },
+  {
+    id: 15,
+    name: `Елена Трапезникова`,
+    services: "Логопед, очные и онлайн занятия логопедические, обучение чтению онлайн/очно",
+    description: "Логопед с опытом работы 10 лет. Очный опыт с 2015г. Онлайн с 2020 года. Работа с билингвальными детьми, русский как иностранный для детей, у которых преобладает язык окружающей среды.  Работа с лексикой/грамматикой/звукопроизношением и письменной речью. Работа с неговорящими детьми/детьми с задержкой речевого развития. Длительность занятия 30 минут (логопедическое) и 40 минут (обучение чтению).",
+    price: [
+      { name: "ОЧНОЕ логопедическое занятие разовое", price: 100 },
+      { name: "ОЧНОЕ логопедическое занятие  в абонементе (8 занятий/месяц), цена за занятие", price: 90 },
+      { name: "ОНЛАЙН логопедическое занятие разовое", price: 80 },
+      { name: "ОНЛАЙН логопедическое занятие  в абонементе (8 занятий/месяц), цена за занятие", price: 70 },
+    ],
+    address: "Rua Recanto do Sol, 469 - Ingleses, Florianópolis - SC",
+    telegramChannel: "https://t.me/elena_belena",
+    website: "",
+    instagram: "",
+    contact: "+5547936184509",
+    photos: [
+      "/images/elena-trapeznikova/elena-trapeznikova.jpeg"
+    ],
+    tags: ["Дети"],
+  },
+  {
+    id: 16,
+    name: `Anushka`,
+    services: "Одежда из муслина",
+    description: "Муслиновая одежда 100 %хлопка: -детская, -женская, -мужская. Пеленки, детские панамки,трусики",
+    price: [
+    ],
+    address: "Флорианополис - доставка по острову",
+    telegramChannel: "https://t.me/valova_anna",
+    website: "",
+    instagram: "http://instagram.com/anushka.clothing",
+    contact: "+5548992084041",
+    photos: [
+      "/images/anushka/anushka-1.jpeg",
+      "/images/anushka/anushka-2.jpeg",
+      "/images/anushka/anushka-3.jpeg",
+    ],
+    tags: ["Одежда"],
+  },
 ];
 
 export default specialists;
